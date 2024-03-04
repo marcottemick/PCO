@@ -1,0 +1,47 @@
+#page-admin {
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#container-ajout {
+    margin: 15px;
+    padding: 5px 15px;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+#container-ajout input {
+    margin-right: 10px;
+    text-align: center;
+}
+
+#container-ajout option {
+    text-align: center;
+}
+
+#container-table {
+    height: 75vh;
+    overflow-y: scroll;
+}
+
+#page-admin table {
+    border-collapse: collapse;
+}
+
+#page-admin table thead {
+    font-weight: bold;
+}
+
+#page-admin table td {    
+    padding: 10px 50px;
+    background-color: #f7f4f4;
+    border: 1px solid black;
+    text-align: center;
+}
+
+#page-admin table tbody td:nth-last-of-type(1) {
+    padding: 10px 5px;
+}
+

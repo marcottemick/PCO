@@ -1,0 +1,75 @@
+#container-input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#container-input > div {
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    border: 1px solid black;
+    border-radius: 10px;    
+    background-color: #f7f4f4;
+}
+
+#container-input input {
+    margin: 0 15px;
+}
+
+#container-antecedents {
+    height: 80vh;
+    overflow-y: scroll;
+    margin: 15px 200px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.container-data-patient {
+    width: 690px;
+    height: 270px;
+    margin: 15px;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: #f7f4f4;
+}
+
+.container-data-patient ul {
+    margin-left: 50px;
+}
+
+.select-CRO:hover {
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.select-CRO div {
+    display: flex;
+    align-items: center;
+}
+
+.select-CRO div span {
+    margin-left: 10px;
+}
+
+#modal-CRO {
+    margin: 50px 25px 0 25px;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    text-align: left;
+}
+
+#modal-ul-datas {
+    display: flex;
+    justify-content: space-around;
+}
+
+#modal-ul-datas ul {
+    padding: 10px 50px;
+    border: 1px solid black;
+    border-radius: 5px;
+    text-align: left;
+}

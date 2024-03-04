@@ -1,0 +1,36 @@
+a {
+    color: black;
+}
+
+nav p {
+    align-items: flex-end;
+}
+
+nav ul {    
+    list-style: none;
+    display: flex;
+    color: black;
+}
+
+nav ul li {
+    margin-left: 50px;
+    display: flex;
+    align-items: center;  
+}
+
+nav ul:last-child {
+    margin: 0 auto;
+}
+
+.link {
+    font-size: 20px;
+    text-decoration: none;  
+}
+
+.link:hover {
+    font-weight: 500;
+}
+
+.active-link {
+    font-weight: 500;
+}

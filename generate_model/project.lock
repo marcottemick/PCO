@@ -1,0 +1,52 @@
+train:
+  cmd: python -m weasel run train
+  script:
+    - python -m spacy train configs/config.cfg --output training/ --paths.train corpus/train.spacy
+      --paths.dev corpus/dev.spacy --training.eval_frequency 10 --training.patience
+      50 --gpu-id -1
+  deps:
+    - path: configs/config.cfg
+      md5: 1d2a7e82aef22d52b52989f6fd1903d2
+    - path: corpus/train.spacy
+      md5: e28c875a354aa602715b1c629930db73
+    - path: corpus/dev.spacy
+      md5: 5ddc100466bf9d1a18e77dcaa2374560
+  outs:
+    - path: training/model-best
+      md5: a87b155f1f59eb5fd531ee3d686cde9e
+evaluate:
+  cmd: python -m weasel run evaluate
+  script:
+    - python -m spacy evaluate training/model-best corpus/test.spacy --output training/metrics.json
+  deps:
+    - path: corpus/test.spacy
+      md5: c7ac1369ef3cf469ee1c08163091c6b7
+    - path: training/model-best
+      md5: a87b155f1f59eb5fd531ee3d686cde9e
+  outs:
+    - path: training/metrics.json
+      md5: 13faed61ad9e161122614f2efd3373a2
+convert:
+  cmd: python -m spacy run convert
+  script:
+    - python scripts/convert.py fr assets/train.json corpus/train.spacy
+    - python scripts/convert.py fr assets/dev.json corpus/dev.spacy
+    - python scripts/convert.py fr assets/test.json corpus/test.spacy
+  deps:
+    - path: assets/train.json
+      md5: 90ac3aa173981b634c9be3ccd0e7049f
+    - path: assets/dev.json
+      md5: 77299a922115322a46851b2a0726ed52
+    - path: assets/test.json
+      md5: 90ac3aa173981b634c9be3ccd0e7049f
+    - path: scripts/convert.py
+      md5: b2f1d5e8dcadcca0699f50bd8195efdf
+  outs:
+    - path: corpus/train.spacy
+      md5: 08c303f7a6fae6f6e4bc3e184b69afbd
+    - path: corpus/dev.spacy
+      md5: 8f1f613151ad748e031d1ed2d938b177
+    - path: corpus/test.spacy
+      md5: e6d244554547da04cd58654ee9efda1d
+  spacy_version: 3.5.3
+  spacy_git_version: '512241e12'

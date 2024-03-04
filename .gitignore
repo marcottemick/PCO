@@ -1,0 +1,12 @@
+.venv
+data
+databases
+.env
+docker_compose.yml
+CRO_v1.csv
+app/front/node_modules
+test.ipynb
+generate_model/reinit_projet.ipynb
+generate_model/training/
+generate_model/versioning/
+generate_model/log_tensorboard/

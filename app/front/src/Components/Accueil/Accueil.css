@@ -1,0 +1,25 @@
+#container-accueil {
+    height: 90vh;
+    margin: 0 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#logo-accueil {
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 75px;
+    text-decoration: underline;
+}
+
+#container-accueil ul {
+    list-style: none;
+}
+
+#container-accueil ul li {
+    margin: 15px;
+    text-align: justify;
+}

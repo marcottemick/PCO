@@ -1,0 +1,87 @@
+.test {
+    color: red;
+    font-weight: bolder;
+}
+
+#container-predict {
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+}
+
+#container-textarea {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#textarea {
+    resize: none;
+    width: 1000px;
+    height: 75vh;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    font-size: 18px;
+    padding: 15px;
+}
+
+#container-predict {
+    display: flex;
+    flex-direction: column;
+}
+
+#container-response {
+    display: flex;
+    margin: 5% 2%;
+}
+
+#predict-CRO {
+    margin: 15px;
+    padding: 15px;
+    width: 80%;
+    border: 1px solid black;
+    border-radius: 15px;
+    background-color: #f7f4f4;
+    line-height: 2.5;    
+}
+
+#predict-list {
+    margin: 15px;
+    padding: 15px 15px 15px 25px;
+    width: 20%;
+    border: 1px solid black;
+    border-radius: 15px;
+    background-color: #f7f4f4;
+}
+
+.predict {
+    border: 1px solid black;
+    border-radius: 15px;
+    padding: 5px 10px;
+    white-space: nowrap;
+}
+
+.DOC {
+    background-color: red;
+}
+
+.PER {
+    background-color: rgb(7, 209, 7);
+}
+
+.DATE {
+    background-color: rgb(0, 110, 255);
+}
+
+.LOC {
+    background-color: yellow;
+}
+
+.DIAG {
+    background-color: rgb(219, 9, 219);
+}
+
+#container-btn {
+    display: flex;
+    justify-content: center;
+}
