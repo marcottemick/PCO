@@ -35,12 +35,12 @@ const Metriques = () => {
             .finally(() => setIsloading(false));
     }, []);
 
-    console.log('isLoading', isLoading, 'isError', isError)
+    console.log(chartData)
 
 
     // constantes pour génération des graphiques
-    const labels_ner = ['ents', 'DATE', 'DIAG', 'LOC', 'PER']
-    const colors_label = ['blue', 'violet', 'yellow', 'green', 'orange']
+    const labels_ner = ['ents']
+    const colors_label = ['blue']
     const metrics = ['precision', 'rappel', 'scoref1']
 
     const renderMetrics = () => {
@@ -52,7 +52,7 @@ const Metriques = () => {
                         <Line
                             data={{
                                 // seconde boucle => les différents labels surveillés
-                                labels: chartData.remarque.map(rq => rq.substring(0, 7)),
+                                labels: chartData.essai.map(rq => rq.substring(0, 7)),
                                 datasets:
                                     labels_ner.map((label_ner, index) => ({
                                         label: `${label_ner}_${metric}`,

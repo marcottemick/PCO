@@ -80,7 +80,7 @@ commands:
   - name: "train"
     help: "Train the NER model"
     script:
-      - "python -m spacy train configs/config.cfg --output training/ --paths.train corpus/train.spacy --paths.dev corpus/dev.spacy --training.eval_frequency 10 --training.patience 50 --gpu-id ${vars.gpu_id}"
+      - "python -m spacy train configs/config.cfg --output training/ --paths.train corpus/train.spacy --paths.dev corpus/dev.spacy"
     deps:
       - "configs/config.cfg"
       - "corpus/train.spacy"
@@ -91,7 +91,7 @@ commands:
   - name: "train-with-vectors"
     help: "Train the NER model with vectors"
     script:
-      - "python -m spacy train configs/config.cfg --output training/ --paths.train corpus/train.spacy --paths.dev corpus/dev.spacy --training.eval_frequency 10 --training.patience 50 --gpu-id ${vars.gpu_id} --initialize.vectors ${vars.vectors_model} --components.tok2vec.model.embed.include_static_vectors true"
+      - "python -m spacy train configs/config.cfg --output training/ --paths.train corpus/train.spacy --paths.dev corpus/dev.spacy"
     deps:
       - "configs/config.cfg"
       - "corpus/train.spacy"

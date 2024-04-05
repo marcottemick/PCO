@@ -17,7 +17,7 @@ const Login = ({ setToken }) => {
                 }
                 else {
                     setToken({
-                        'id': id,
+                        'id': response.id,
                         'role': response.role
                     });
                 };

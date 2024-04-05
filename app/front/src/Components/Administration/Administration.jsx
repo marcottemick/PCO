@@ -77,18 +77,8 @@ const Administation = () => {
             });
     };
 
-    // Exemple de tableau
-let monTableau = [1, 2, 3, 4, 5];
-console.log(monTableau)
 
-// Index de la valeur à supprimer
-let indexASupprimer = 2;
-
-// Utilisation de la méthode splice pour supprimer la valeur à l'index spécifié
-monTableau.splice(indexASupprimer, 1);
-
-console.log(monTableau); // Le tableau maintenant : [1, 2, 4, 5]
-
+    console.log(logins)
     const renderLogins = () => {
         return (
             <div id='page-admin'>
@@ -147,7 +137,7 @@ console.log(monTableau); // Le tableau maintenant : [1, 2, 4, 5]
                                         <button
                                             // bouton de suppression d'un utilisateur grâve à son id
                                             className='btn'
-                                            onClick={() => handleClikDeleteLogin(cell[0], indexRow)}>
+                                            onClick={() => handleClikDeleteLogin(cell[1], indexRow)}>
                                             Supprimer
                                         </button>
                                     </td>

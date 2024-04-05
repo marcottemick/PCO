@@ -10,3 +10,4 @@ generate_model/reinit_projet.ipynb
 generate_model/training/
 generate_model/versioning/
 generate_model/log_tensorboard/
+generate_data/recup_CRO.ipynb

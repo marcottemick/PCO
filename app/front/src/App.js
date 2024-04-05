@@ -1,7 +1,6 @@
 import './App.css';
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import Antecedent from './Components/Antecedent/Antecedent';
@@ -15,6 +14,8 @@ import Administation from './Components/Administration/Administration';
 
 function App() {
   const { token, setToken } = useToken();
+
+  console.log(token)
 
   const renderApp = () => {
     return (
@@ -33,7 +34,7 @@ function App() {
                 <Accueil token={token} />
               </Route>
               <Route path='/analyse'>
-                <Predict />
+                <Predict id={token.id}/>
               </Route>
               <Route path='/patients'>
                 <Antecedent />

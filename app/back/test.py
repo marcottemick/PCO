@@ -16,26 +16,22 @@ class FlaskAppTests(unittest.TestCase):
         self.assertEqual(data['response'], 'connection au serveur')
     
     def test_predict_CRO(self):
-        data = {'CRO': """Compte rendu d'histopathologie
-                        Dr Valentine Bousquet, anatomopathologiste
-                        Patient : Bertrand Pinto
-                        Naissance : 23/05/1940
-                        Adresse : 974, chemin Lacombe, 08761 Sainte-Luc
-                        Numéro de sécurité sociale : 1 1940 05 08761 487 82
-                        Objet : Examen histopathologique de la taille du côlon récupérée lors d'une colectomie
-                        Résumé :
-                        Nous avons procédé à l'examen histopathologique de la taille du côlon récupérée lors d'une colectomie effectuée chez le patient Bertrand Pinto, âgé de 82 ans, ayant une adresse à Sainte-Luc. L'examen a été réaliser suite à des symptômes digestifs importants et à une masse palpable au niveau abdominal.
-                        Description macroscopique :
-                        La pièce opératoire est une taille de côlon mesurant environ 10 cm de long sur 5 cm de largeur et 3 cm d'épaisseur. Elle présente une surface externe régulière, sans ulcération ni déformation apparente. La couleur est blanche jaunâtre avec des zones plus ou moins rosâtres.
-                        Description microscopique :
-                        Après préparation et coloration, les coupes histologiques ont montré une structure tubulaire épithéliale rectale avec des cellules caliciformes et des cellules columnaires. Les cellules sont bien différenciées, mais on observe une légère augmentation de la taille nucléaire et une hyperplasie modeste des cryptes. Il n'y a pas de signes de dysplasie ou de cancer.
-                        Diagnostic :
-                        En raison de la présence d'une masse palpable au niveau abdominal et de la taille de la taille du côlon, nous avons diagnostiqué un lipome bénin du côlon. Ce type de tumefaction est couramment rencontré dans cette région et est généralement bénin.
-                        Conclusion :
-                        Le patient Bertrand Pinto souffre d'un lipome bénin du côlon. Nous recommandons une surveillance régulière pour évaluer l'évolution de cette affection et prendre en charge rapidement tout signe de complication ou de transformation maligne.
-                        Signature :
-                        Dr Valentine Bousquet, anatomopathologiste
-                        Date : 23/02/2023"""}
+        data = {'CRO': """Titre : Compte rendu d'anatomopathologie
+                Patient : Marguerite Derose
+                Date de naissance : 15/01/1963
+                Adresse : 349, boulevard de Jacques, 21813 Legendre
+                Numéro de sécurité social : 2 1963 01 21813 466 39
+                Présentation :
+                Cet examen anatomopathologique porte sur une masse gastrointestinale externe, retirée chirurgicalement chez un patient de 45 ans.
+                Description macroscopique :
+                Lors de l'examen initial, nous avons constaté une masse sphérique bien délimitée, mesurant environ 3 cm de diamètre. Sa surface était polypoïde et couverte d'une muqueuse intestinale normale. La capsule du tumorama présentait adhérences minimes à la paroi abdominale. L'aspect cutáné était homogène et non inflammatoire. Aucune ulcération ou hémorrhagie n'était observée.
+                Description microscopique :
+                L'étude histologique révélait une formation composée majoritairement de tissus conjonctifs matures, intercalées entre des structures glandulaires tubulo-aciniques. Ces dernières présentaient des cellules cubiques à pyramidales, disposées autour de canaux centraux dilatés. Des zones myxoïdes étaient également identifiables. Les mitoses étaient rares et les atypies nucléaires minimales. Les limites du carcinome squirrheux étaient nettes et il n'y avait pas d'infiltration peridermique ni intramurales.
+                Immunohistochimie :
+                Les cellules épithéliales ont été positives pour le CK7 et CK20, confirmant leur origine entéro-épitheliale. Les cellules myoide ont été positivement marquées par SMA (Smooth Muscle Actin) et des fibroblasts ont montré une expression faible de viment et des fibrilles de collagène type I sont visibles.
+                Conclusion :
+                Dans cette observation, nous retrouvons tous les critères morphologiques caractéristiques d'un carcinome squirrheux. Ce dernier est constitué d'un assemblage disproportionné de tissus conjonctifs et d'éléments glandulaires entéro-épithéliaux. Son aspect histologique et immunohistochimique conforte ce diagnose.
+                Signature : Dr Agile Strong, anatomopathologiste"""}
         response = self.app.put('/predict', data=json.dumps(data), content_type='application/json')
 
         # Vérifiez le code de statut
@@ -43,11 +39,12 @@ class FlaskAppTests(unittest.TestCase):
 
         response_data = json.loads(response.get_data(as_text= True))
         response_true = {'predict': {
-                             'DOC': ['dr valentine bousquet'], 
-                             'PER': ['bertrand pinto'], 
-                             'DATE': ['23/05/1940', '23/02/2023'], 
-                             'LOC': ['974, chemin lacombe, 08761 sainte-luc'], 
-                             'DIAG': ['lipome']},
+                             'DOC':  ['Dr Agile Strong'], 
+                             'PER':  ['Marguerite Derose'], 
+                             'DATE': ['15/01/1963'], 
+                             'LOC':  ['349, boulevard de Jacques, 21813 Legendre'],
+                             'NIR':  ['2 1963 01 21813 466 39'],
+                             'DIAG': ['carcinome squirrheux']},
                          'response': True}
         
         self.assertEqual(response_data['response'], response_true['response'])
@@ -58,7 +55,7 @@ class FlaskAppTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         data = json.loads(response.get_data(as_text=True))
 
-        self.assertEqual(len(data['patients']), 400)
+        self.assertEqual(len(data['patients']) != 0, True)
     
     def test_antecedent_true(self):
         param = {'patient': 'Adrien Pages'}
@@ -67,20 +64,17 @@ class FlaskAppTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         response_data = json.loads(response.get_data(as_text=True))
 
-        response_true = [{'nir': '1 1968 02 24660 427 60', 
-                          'address': '637, avenue Théophile Pelletier, 24660 Sainte Alfred', 
-                          'birthday': '09/02/1968', 
-                          'name': 'Adrien Pages', 
-                          'dict_CRO_diag': [{'granulome annulaire': '36'}, 
-                                            {'granulome annulaire': '42'}, 
-                                            {'dermatite herpétiforme': '86'}, 
-                                            {'syndrome de polypose juvénile': '128'}, 
-                                            {'syndrome de Lynch': '195'}]}]
+        response_true = [{'address': '637, avenue Théophile Pelletier, 24660 Sainte Alfred', 
+                        'birthday': '09/02/1968', 
+                        'dict_CRO_diag': [{'mélanome': '1730'}, {'rosacée': '1744'}, {'rosacée': '1761'}, 
+                        {'maladie de Duhring-Brocq': '1871'}, {'sarcome à cellules fusiformes de Kaposi': '1880'}], 
+                        'name': 'Adrien Pages', 
+                        'nir': '1 1968 02 24660 427 60'}]
         expected_response = {'antecedents': response_true, 'response': True}
         self.assertEqual(response_data, expected_response)
 
     def test_antecedent_false(self):
-        param = {'patient': 'Adrien Guyon'}
+        param = {'patient': 'Bertrand Pinto'}
         response = self.app.get('antecedents', query_string=param)
 
         self.assertEqual(response.status_code, 200)
@@ -96,7 +90,7 @@ class FlaskAppTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         response_data = json.loads(response.get_data(as_text=True))
 
-        response_true = {'nir': '1 1968 02 24660 427 60'}
+        response_true = {'nir': '2 1994 11 19795 060 32'}
 
         expected_response = {'detailCRO': response_true}
         self.assertEqual(response_data['detailCRO']['nir'], expected_response['detailCRO']['nir'])

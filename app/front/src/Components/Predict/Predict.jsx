@@ -11,7 +11,7 @@ import PredictResponse from "./PredictResponse";
 import Textarea from "./TextArea";
 import Chargement from "../../Elements/Chargement";
 
-const Predict = () => {
+const Predict = ({id}) => {
     // gère le chargement des données
     const [isLoading, setIsLoading] = useState(false);
     // gère le succès du chargement des données
@@ -25,7 +25,7 @@ const Predict = () => {
     const handleClickCRO = async () => {
         if (CRO !== "") {
             setIsLoading(true);
-            fetchPutCRO({ 'CRO': CRO }).then(response => {
+            fetchPutCRO({ 'CRO': CRO, 'id_user': id }).then(response => {
                 if (response.response) {
                     if (response.response) {
                         setPredictSuccess(response.response);

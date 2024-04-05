@@ -32,7 +32,7 @@
 
 #container-response {
     display: flex;
-    margin: 5% 2%;
+    margin: 2% 2%;
 }
 
 #predict-CRO {
@@ -42,7 +42,7 @@
     border: 1px solid black;
     border-radius: 15px;
     background-color: #f7f4f4;
-    line-height: 2.5;    
+    line-height: 2;    
 }
 
 #predict-list {
@@ -57,7 +57,7 @@
 .predict {
     border: 1px solid black;
     border-radius: 15px;
-    padding: 5px 10px;
+    padding: 2px 10px;
     white-space: nowrap;
 }
 
@@ -79,6 +79,10 @@
 
 .DIAG {
     background-color: rgb(219, 9, 219);
+}
+
+.NIR {
+    background-color: orange;
 }
 
 #container-btn {

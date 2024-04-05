@@ -78,15 +78,22 @@ class Generate_people:
         return True
     
 class Generate_CRO:
-    def __init__(self, datas_CRO, model) -> list:
+    def __init__(self, datas_CRO, model, id_prompt) -> list:
         self.datas_CRO = datas_CRO
         self.texts = []
         self.model = model
+        self.id_prompt = id_prompt
 
     def prompt(self, data_CRO):
-        prompt = f"""Génère un compte rendu d'histopathologie en français à partir d' une {data_CRO["diagnostic"]["opération"]} de {data_CRO["diagnostic"]["organe"]} avec des dimensions fictives diagnostiquant: {data_CRO['diagnostic']['diagnostic']} pour un seul organe. Le nom de l'anatomopathologiste est {data_CRO['med']['name']},\
-            celui du patient est {data_CRO["patient"]["name"]} nait le {data_CRO["patient"]["birthday"]}, habitant à {data_CRO["patient"]["address"]} et de numéro de sécurité sociale fictive {data_CRO["patient"]["num_secu_social"]}. Termine le compte rendu par 'Note: ceci est un compte-rendu fictif.'
-            """
+        if self.id_prompt == 0:
+            prompt = f"""Génère en français un compte opératoire d'anatomopathologie qui a pour titre : Compte rendu d'anatomopathologie. pour un cas de {data_CRO['diagnostic']['diagnostic']} en trois partie : description macroscopique, description microscopique, immunohistochimie et conclusion avec rappel des faits. Le diagnostic ne doit apparaitre que dans la conclusion. Spécifie en bas de page 'Note : ceci est un compte rendu fictif.' Compte en rendu en français."""
+        elif self.id_prompt == 1:
+            prompt = f"""Génère en français un compte opératoire d'anatomopathologie qui a pour titre : Compte rendu d'anatomopathologie. pour un diagnostic de {data_CRO['diagnostic']['diagnostic']} en trois partie : description macroscopique, description microscopique, immunohistochimie et conclusion avec rappel des observations. Le diagnostic ne doit apparaitre que dans la conclusion. Spécifie en bas de page 'Note : ceci est un compte rendu fictif.' Compte en rendu en français."""
+        elif self.id_prompt == 2:
+            prompt = f"""Génère en français un compte opératoire d'anatomopathologie qui a pour titre : Compte rendu d'anatomopathologie. pour un cas de {data_CRO['diagnostic']['diagnostic']} sur une {data_CRO['diagnostic']['opération']} en trois partie : description macroscopique, description microscopique, immunohistochimie et conclusion avec rappel des preuves. Le diagnostic ne doit apparaitre que dans la conclusion. Spécifie en bas de page 'Note : ceci est un compte rendu fictif.' Compte en rendu en français."""
+        elif self.id_prompt == 3:
+            prompt = f"""Génère en français un compte opératoire d'anatomopathologie qui a pour titre : Compte rendu d'anatomopathologie. pour un diagnostic de {data_CRO['diagnostic']['diagnostic']} sur une {data_CRO['diagnostic']['opération']} en trois partie : description macroscopique, description microscopique, immunohistochimie et conclusion avec rappel des observations. Le diagnostic ne doit apparaitre que dans la conclusion. Spécifie en bas de page 'Note : ceci est un compte rendu fictif.' Compte en rendu en français."""
+
         return prompt
 
     def huggingChat_CRO(self, data_CRO) -> str:
@@ -103,8 +110,8 @@ class Generate_CRO:
         print(prompt)
         driver.find_element(By.XPATH, '//*[@id="app"]/div[1]/div/div[2]/div/form/div/div/textarea').send_keys(prompt)
         time.sleep(1)
-        # driver.find_element(By.XPATH, '//*[@id="app"]/div[1]/div/div[2]/div/form/div/button').click()
-        time.sleep(20)  
+        driver.find_element(By.XPATH, '//*[@id="app"]/div[1]/div/div[2]/div/form/div/button').click()
+        time.sleep(10)  
         
         verif_text = True  
         while verif_text:
@@ -141,8 +148,8 @@ class Generate_CRO:
             CRO = response['choices'][0]['message']['content']
             self.text_append(CRO, data_CRO, self.model)
    
-    def multithreading(self):
-        with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+    def multithreading(self, nb_worker: int = 1):
+        with concurrent.futures.ThreadPoolExecutor(max_workers=nb_worker) as executor:
             executor.map(self.huggingChat_CRO, self.datas_CRO)
     
     def input(self):
@@ -162,67 +169,50 @@ class Generate_CRO:
             'operation': data_CRO['diagnostic']['opération']
             })
         
-    def append_CRO(self):
-        df_cro = pd.read_csv(r'G:\Mon Drive\PCO\data\CRO-df.csv', sep=';')
+    def append_CRO(self, file):
+        df_cro = pd.read_csv(file, sep=';')
         new_cro = pd.DataFrame(self.texts)
         print(new_cro)
         df_cro = pd.concat([df_cro, new_cro], ignore_index=True)
-        df_cro.to_csv(r'G:\Mon Drive\PCO\data\CRO-df.csv', sep=';', index=False) 
+        df_cro.to_csv(file, sep=';', index=False) 
         
     
 class Select_line:
     """
     niv_1: nombre de liste dans la première boucle
     niv_2: nombre de valeur dans la deuxième boucle
-    type_op: all (valeur par défaut), biopsie, exérèse = exérèse + colectomie
-    org: all (valeur par défaut), peau, côlon, foie
+    type_op: all (valeur par défaut), biopsie, exérèse
     """
-    def __init__(self, niv_1: int, niv_2: int, type_op:str = 'all', org:str = 'all') -> list:
+    def __init__(self, niv_1: int, niv_2: int, type_op:str = 'all') -> list:
         self.datas_CRO_niv_1 = []
         self.datas_CRO_niv_2 = []
         self.data_CRO = {}
         self.niv_1 = niv_1
         self.niv_2 = niv_2
         self.type_op = type_op
-        self.org = org
 
     def open_datas(self) -> pd.DataFrame:
-        self.patients = pd.read_csv(r"G:\Mon Drive\PCO\data\patients.csv", sep=';')
-        self.meds = pd.read_csv(r"G:\Mon Drive\PCO\data\anatomopathologists.csv", sep=";")
-        self.diagnostics = pd.read_csv(r"G:\Mon Drive\PCO\data\diagnostics.csv", sep=';')
+        self.patients = pd.read_csv(r"G:\Mon Drive\PCO\data\patients.csv", sep=';', dtype= str)
+        self.meds = pd.read_csv(r"G:\Mon Drive\PCO\data\anatomopathologists.csv", sep=";", dtype= str)
+        self.diagnostics = pd.read_csv(r"G:\Mon Drive\PCO\data\diagnostics_v2.csv", sep=';', dtype= str)
+
+        self.diagnostics = self.diagnostics.query('generation == "1"')
 
         self.index_patients = self.patients.index.tolist()        
         self.index_meds = self.meds.index.tolist()        
         self.index_diags = self.diagnostics.index.tolist()
 
-        valeur_debut_diag = 0
-        valeur_fin_diag = len(self.index_diags)
-
-        if self.org == 'peau':
-            valeur_fin_diag = 33
-            self.index_patients = self.index_patients[0: 24] + self.index_patients[200:224]
-            self.index_meds = self.index_meds[0: 24] + self.index_meds[50:74]
-        if self.org == 'côlon':
-            valeur_debut_diag = 34
-            valeur_fin_diag = 68
-            self.index_patients = self.index_patients[0: 24] + self.index_patients[200:224]
-            self.index_meds = self.index_meds[0: 24] + self.index_meds[50:74]
-        if self.org == 'foie':
-            valeur_debut_diag = 69
-            self.index_patients = self.index_patients[25: 199] + self.index_patients[225:len(self.index_patients)]
-            self.index_meds = self.index_meds[25: 49] + self.index_meds[75:len(self.index_meds)]
-
-        self.index_diags = self.index_diags[valeur_debut_diag: valeur_fin_diag]
-
     def select_patients(self, id_patient) -> list:
         self.data_patient = self.patients.loc[id_patient]
         self.data_patient = self.data_patient.to_dict()
         self.data_patient['num_secu_social'] = self.data_patient['nir']
+
         self.data_CRO['patient'] = self.data_patient
       
     def select_med(self, id_med) -> list:
         self.data_med = self.meds.loc[id_med]
         self.data_med = self.data_med.to_dict()
+
         self.data_CRO['med'] = self.data_med
 
     def type_operation(self) -> list:
@@ -236,16 +226,14 @@ class Select_line:
         random_operation = random.randint(valeur_debut, valeur_fin)        
         if random_operation == 0:
             self.data_diagnostic['opération'] = 'biopsie'
-        else:
-            if self.data_diagnostic['organe'] == 'côlon':
-                self.data_diagnostic['opération'] = 'colectomie'
-            else:
-                self.data_diagnostic['opération'] = 'exérèse'
+        else:          
+            self.data_diagnostic['opération'] = 'exérèse'
 
     def select_diagnostic(self, id_diagnostic) -> list:
         self.data_diagnostic = self.diagnostics.loc[id_diagnostic]
         self.data_diagnostic = self.data_diagnostic.to_dict()
         self.type_operation()
+
         self.data_CRO['diagnostic'] = self.data_diagnostic
 
     def generate_liste_niv_1_niv_2(self, index):
@@ -268,16 +256,17 @@ class Select_line:
         niv_1_meds = self.generate_liste_niv_1_niv_2(self.index_meds)
         niv_1_diags = self.generate_liste_niv_1_niv_2(self.index_diags)
 
-        for niv_1 in range(0, self.niv_1):    
-            for niv_2 in range(0, self.niv_2):          
+        for niv_1 in range(0, self.niv_1):  
+            for niv_2 in range(0, self.niv_2):                          
                 self.select_patients(niv_1_patients[niv_1][niv_2])
                 self.select_med(niv_1_meds[niv_1][niv_2])
                 self.select_diagnostic(niv_1_diags[niv_1][niv_2])
                 self.datas_CRO_niv_2.append(self.data_CRO)
                 self.data_CRO = {}
+
             self.datas_CRO_niv_1.append(self.datas_CRO_niv_2)
             self.datas_CRO_niv_2 = []
-  
+
         return self.datas_CRO_niv_1
 
 

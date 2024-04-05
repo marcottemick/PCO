@@ -1,13 +1,14 @@
-from flask import Flask, jsonify, request, render_template
+from flask import Flask, jsonify, request
 import pandas as pd
 import spacy
 import utils
 import flask_monitoringdashboard as dashboard
+import re
 
 app = Flask(__name__)
 # https://medium.com/flask-monitoringdashboard-turtorial/monitor-your-flask-web-application-automatically-with-flask-monitoring-dashboard-d8990676ce83
+
 dashboard.config.init_from(file='\config.cfg')
-dashboard.bind(app)
 
 @app.route('/test', methods=['GET'])
 def get_test():
@@ -29,15 +30,18 @@ def put_login() -> dict:
         bdd = utils.get_db_connection()
         cursor = bdd.cursor()
 
-        cursor.execute(f'''SELECT id_role FROM logins WHERE login = "{login}" and password = "{password}";''')
+        cursor.execute(f'''SELECT id_role, id FROM logins WHERE login = "{login}" and password = "{password}";''')
         response_role = cursor.fetchone()
 
         if response_role is None:
             role = 0
+            id = 0
         else:
             role = response_role[0]
+            id = response_role[1]
 
-        response = {'role': role}
+
+        response = {'role': role, 'id': id}
         return jsonify(response)
 
     except Exception as e:
@@ -63,7 +67,7 @@ def get_logins():
         cursor.close()
 
         df_logins = pd.DataFrame(df_logins, columns= columns, dtype=str)
-        df_logins = df_logins.drop(['id_role','description'], axis=1)
+        df_logins = df_logins.drop(['description'], axis=1)
         logins = df_logins.values.tolist()
 
         response = {
@@ -85,10 +89,12 @@ def delete_login():
         req = request.json
         id = req.get('id')
 
+        print(id)
+
         bdd = utils.get_db_connection()
         cursor = bdd.cursor()
 
-        cursor.execute(f'''DELETE FROM logins WHERE id={id};''')
+        cursor.execute(f'''DELETE FROM logins WHERE id={int(id)};''')
         bdd.commit()
         cursor.close()
         bdd.close()
@@ -139,7 +145,10 @@ def put_predict() -> dict:
     try:
         req = request.json
         CRO = req.get('CRO')
-        CRO= CRO.lower()
+        id_user = req.get('id_user')
+
+        bdd = utils.get_db_connection()
+        cursor = bdd.cursor()
 
         nlp = spacy.load(r"C:\PCO\generate_model\training\model-best")
         doc = nlp(CRO)
@@ -147,18 +156,81 @@ def put_predict() -> dict:
         predict = {}
 
         for ent in doc.ents:
-            ner = ent.text.strip()
-            if ent.label_ == 'PER' and 'dr ' in ner:
-                if 'DOC' in predict.keys():
-                    if ent.text not in predict['DOC']:                    
-                        predict['DOC'].append(ner)
-                else:
-                    predict['DOC'] = [ner]       
-            elif ent.label_ in predict.keys():
+            ner = ent.text.strip()          
+            if ent.label_ in predict.keys():
                 if ent.text not in predict[ent.label_]:
                     predict[ent.label_].append(ner)
             else:
-                predict[ent.label_] = [ner]           
+                predict[ent.label_] = [ner]  
+
+        patient = re.search(r"Patient : (.+?)\n", CRO)
+        birthday = re.search(r"Date de naissance : (.+?)\n", CRO)
+        address = re.search(r"Adresse : (.+?)\n", CRO)
+        nir = re.search(r"Numéro de sécurité social : (.+?)\n", CRO)
+        doc = re.search(r"Signature : (.+?), anatomopathologiste", CRO)
+        if patient is not None:
+            predict['PER'] = [patient.group(1).strip()]
+        if birthday is not None:
+            predict['DATE'] = [birthday.group(1).strip()]
+        if address is not None:
+            predict['LOC'] = [address.group(1).strip()]
+        if doc is not None:
+            predict['DOC'] = [doc.group(1).strip()]
+        if nir is not None:
+            predict['NIR'] = [nir.group(1).strip()]
+
+
+        cursor.execute(f'SELECT nir FROM patients WHERE nir = "{nir.group(1).strip()}";')
+        patient_in_bdd = cursor.fetchall()
+        if len(patient_in_bdd) == 0:
+            cursor.execute(
+            f'''INSERT INTO patients (name, address, birthday, nir)
+            VALUES("{patient.group(1).strip()}", "{address.group(1).strip()}", "{birthday.group(1).strip()}", "{nir.group(1).strip()}");''')
+            bdd.commit()
+        
+        cursor.execute(f'SELECT * FROM anatomopathologists;')
+        docs_in_bdd = cursor.fetchall()
+        columns=[i[0] for i in cursor.description]
+        docs_df = pd.DataFrame(docs_in_bdd, columns= columns, dtype=str)
+        doc_in_bdd = docs_df.query(f'name == "{doc.group(1).strip()}"')
+
+        if len(doc_in_bdd) == 0:
+            cursor.execute(
+            f'''INSERT INTO anatomopathologists (name, id_med)
+            VALUES("{doc.group(1).strip()}", "{len(docs_df)}");''')    
+            bdd.commit()
+            id_doc = len(docs_in_bdd)
+        else:
+            id_doc = doc_in_bdd.id_med.tolist()[0]    
+
+        id_diag = -1
+        if 'DIAG' in predict:
+            predict_in_CRO = predict['DIAG'][0]
+        
+            cursor.execute(f'SELECT * FROM diagnostics;')
+            diags_in_bdd = cursor.fetchall()
+            columns=[i[0] for i in cursor.description]
+            diags_df = pd.DataFrame(diags_in_bdd, columns= columns, dtype=str)
+            
+            diag_in_bdd = diags_df.query(f'diagnostic == "{predict_in_CRO}"')
+
+            if len(diag_in_bdd) == 0:
+                cursor.execute(
+                f'''INSERT INTO diagnostics (diagnostic, id_diag)
+                VALUES("{predict_in_CRO}", "{len(diags_df)}");''')    
+                bdd.commit()
+                id_diag = len(diags_in_bdd)
+            else:
+                id_diag = diag_in_bdd.id_diag.tolist()[0]
+
+        cursor.execute(
+            f'''INSERT INTO CRO (CRO, nir, id_diag, id_med, load_by)
+            VALUES("{CRO}", "{nir.group(1).strip()}", "{int(id_diag)}", "{int(id_doc)}", "{id_user}");''')    
+        bdd.commit()
+
+        if id_diag == -1:
+            utils.send_mail('CRO sans diagnostic trouvé', CRO)
+        
 
         if len(predict.keys()) > 0:
             response = {'response': True,           
@@ -269,6 +341,7 @@ def get_read_CRO() -> dict:
     
     try:
         id_CRO = request.args.get('id_CRO')
+        print(id_CRO)
 
         bdd = utils.get_db_connection()
         cursor = bdd.cursor()
@@ -277,17 +350,19 @@ def get_read_CRO() -> dict:
                     JOIN patients USING (nir)
                     JOIN diagnostics USING (id_diag)
                     JOIN anatomopathologists USING (id_med)
+                    JOIN logins ON CRO.load_by = logins.id
                     WHERE id_CRO = {int(id_CRO)};''')
         datas_CRO = cursor.fetchall()    
 
         columns=[i[0] for i in cursor.description]
-        columns[7] = 'name_patient'
-        columns[13] = 'name_med'
+
+        columns[8] = 'name_patient'
+        columns[14] = 'name_med'
 
         cursor.close()
 
-        datas_CRO = pd.DataFrame(datas_CRO, columns= columns, dtype=str)
-        datas_CRO = datas_CRO.drop(['id_med', 'id_diag', 'cancer', 'organe', 'operation'], axis = 1)
+        datas_CRO = pd.DataFrame(datas_CRO, columns = columns, dtype=str)
+        datas_CRO = datas_CRO.drop(['id_med', 'id_diag', 'organe', 'operation', 'cancer', 'load_by', 'id', 'password', 'id_role'], axis = 1)
         datas_CRO_response = datas_CRO.to_dict(orient='records')
 
         response = {'detailCRO': datas_CRO_response[0]}
@@ -305,9 +380,17 @@ def get_metriques():
     sortie: dictionnaire des différentes métriques
     '''
     try:
-        metrics = pd.read_csv(r'C:\PCO\generate_model\metrics_df.csv', sep=';')
-        metrics = metrics.drop(['NER', 'dataset', 'hyperparamètres'], axis=1)
-        metrics_list = metrics.to_dict(orient='list')
+        bdd = utils.get_db_connection()
+        cursor = bdd.cursor()
+
+        cursor.execute(f'''SELECT * FROM metrics;''')
+        metrics = cursor.fetchall()   
+
+        columns=[i[0] for i in cursor.description]
+        cursor.close()
+
+        df_metrics = pd.DataFrame(metrics, columns= columns, dtype=str)
+        metrics_list = df_metrics.to_dict(orient='list')
 
         response = {'response': metrics_list}
         return jsonify(response)
@@ -315,6 +398,10 @@ def get_metriques():
     except Exception as e:
         print(e)
         utils.send_mail('endpoint metriques', e)
+
+
+dashboard.config.enable_logging=True    
+dashboard.bind(app)
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

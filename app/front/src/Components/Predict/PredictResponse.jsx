@@ -5,12 +5,14 @@ import { sanitizedData } from "../../Elements/utils";
 const PredictResponse = ({ predict, CRO, handleNewPredict, predictSuccess }) => {
 
     // place le CRO entre deux balises p
-    let CROpredict = "<p>" + CRO.toLowerCase() + "</p>";
+    let CROpredict = "<p>" + CRO + "</p>";
     // ajoute des span aux entités trouvés par le modèle pour permettre l'ajout de CSS sur le texte
     let keys = Object.keys(predict);
     for (let i = 0; i < keys.length; i++) {
         for (let j = 0; j < keys[i].length; j++) {
             CROpredict = CROpredict.replaceAll(predict[keys[i]][j], `<span class="predict ${keys[i]}">${predict[keys[i]][j]} - <strong>${keys[i]}</strong></span>`);
+            CROpredict = CROpredict.replaceAll('\n', '<br/>');
+            console.log(CROpredict.includes('\n'))
         };
     };
 
@@ -30,7 +32,8 @@ const PredictResponse = ({ predict, CRO, handleNewPredict, predictSuccess }) => 
                         <li>Patient: {predict_viod(predict.PER)}</li>
                         <li>Date de naissance: {predict_viod(predict.DATE)}</li>
                         <li>Adresse: {predict_viod(predict.LOC)}</li>
-                        <li>Diagnostic: {predict_viod(predict.DIAG)}</li>
+                        <li>NIR: {predict_viod(predict.NIR)}</li>
+                        <li>Diagnostic: <strong>{predict_viod(predict.DIAG)}</strong></li>
                     </ul>
                 </div>
             </div>}
