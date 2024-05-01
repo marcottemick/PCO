@@ -142,52 +142,45 @@ def put_predict() -> dict:
     -entrée: CRO (str)
     -sortie: dictionnaire de prédiction
     '''
-    try:
-        req = request.json
-        CRO = req.get('CRO')
-        id_user = req.get('id_user')
+    # try:
+    req = request.json
+    CRO = req.get('CRO')
+    id_user = req.get('id_user')
 
-        bdd = utils.get_db_connection()
-        cursor = bdd.cursor()
+    bdd = utils.get_db_connection()
+    cursor = bdd.cursor()
 
-        nlp = spacy.load(r"C:\PCO\generate_model\training\model-best")
-        doc = nlp(CRO)
+    nlp = spacy.load(r"G:\Mon Drive\PCO\generate_model\training\model-best")
+    doc = nlp(CRO)
 
-        predict = {}
+    predict = {}
 
-        for ent in doc.ents:
-            ner = ent.text.strip()          
-            if ent.label_ in predict.keys():
-                if ent.text not in predict[ent.label_]:
-                    predict[ent.label_].append(ner)
-            else:
-                predict[ent.label_] = [ner]  
+    for ent in doc.ents:
+        ner = ent.text.strip()          
+        if ent.label_ in predict.keys():
+            if ent.text not in predict[ent.label_]:
+                predict[ent.label_].append(ner)
+        else:
+            predict[ent.label_] = [ner]  
 
-        patient = re.search(r"Patient : (.+?)\n", CRO)
-        birthday = re.search(r"Date de naissance : (.+?)\n", CRO)
-        address = re.search(r"Adresse : (.+?)\n", CRO)
-        nir = re.search(r"Numéro de sécurité social : (.+?)\n", CRO)
-        doc = re.search(r"Signature : (.+?), anatomopathologiste", CRO)
-        if patient is not None:
-            predict['PER'] = [patient.group(1).strip()]
-        if birthday is not None:
-            predict['DATE'] = [birthday.group(1).strip()]
-        if address is not None:
-            predict['LOC'] = [address.group(1).strip()]
-        if doc is not None:
-            predict['DOC'] = [doc.group(1).strip()]
-        if nir is not None:
-            predict['NIR'] = [nir.group(1).strip()]
+    patient = re.search(r"Patient : (.+?)\n", CRO)
+    birthday = re.search(r"Date de naissance : (.+?)\n", CRO)
+    address = re.search(r"Adresse : (.+?)\n", CRO)
+    nir_find = re.search(r"Numéro de sécurité social : (.+?)\n", CRO)
+    doc = re.search(r"Signature : (.+?), anatomopathologiste", CRO)
 
+    id_doc = -1
+    nir = -1
 
-        cursor.execute(f'SELECT nir FROM patients WHERE nir = "{nir.group(1).strip()}";')
-        patient_in_bdd = cursor.fetchall()
-        if len(patient_in_bdd) == 0:
-            cursor.execute(
-            f'''INSERT INTO patients (name, address, birthday, nir)
-            VALUES("{patient.group(1).strip()}", "{address.group(1).strip()}", "{birthday.group(1).strip()}", "{nir.group(1).strip()}");''')
-            bdd.commit()
-        
+    if patient is not None:
+        predict['PER'] = [patient.group(1).strip()]
+    if birthday is not None:
+        predict['DATE'] = [birthday.group(1).strip()]
+    if address is not None:
+        predict['LOC'] = [address.group(1).strip()]
+    if doc is not None:
+        predict['DOC'] = [doc.group(1).strip()]
+
         cursor.execute(f'SELECT * FROM anatomopathologists;')
         docs_in_bdd = cursor.fetchall()
         columns=[i[0] for i in cursor.description]
@@ -203,45 +196,64 @@ def put_predict() -> dict:
         else:
             id_doc = doc_in_bdd.id_med.tolist()[0]    
 
-        id_diag = -1
-        if 'DIAG' in predict:
-            predict_in_CRO = predict['DIAG'][0]
-        
-            cursor.execute(f'SELECT * FROM diagnostics;')
-            diags_in_bdd = cursor.fetchall()
-            columns=[i[0] for i in cursor.description]
-            diags_df = pd.DataFrame(diags_in_bdd, columns= columns, dtype=str)
-            
-            diag_in_bdd = diags_df.query(f'diagnostic == "{predict_in_CRO}"')
+    if nir_find is not None:
+        predict['NIR'] = [nir_find.group(1).strip()]
 
-            if len(diag_in_bdd) == 0:
-                cursor.execute(
-                f'''INSERT INTO diagnostics (diagnostic, id_diag)
-                VALUES("{predict_in_CRO}", "{len(diags_df)}");''')    
-                bdd.commit()
-                id_diag = len(diags_in_bdd)
-            else:
-                id_diag = diag_in_bdd.id_diag.tolist()[0]
+        cursor.execute(f'SELECT nir FROM patients WHERE nir = "{nir_find.group(1).strip()}";')
+        patient_in_bdd = cursor.fetchall()
+        if len(patient_in_bdd) == 0:
+            cursor.execute(
+            f'''INSERT INTO patients (name, address, birthday, nir)
+            VALUES("{patient.group(1).strip()}", "{address.group(1).strip()}", "{birthday.group(1).strip()}", "{nir_find.group(1).strip()}");''')
+            bdd.commit() 
+            nir = nir_find.group(1).strip()
 
-        cursor.execute(
-            f'''INSERT INTO CRO (CRO, nir, id_diag, id_med, load_by)
-            VALUES("{CRO}", "{nir.group(1).strip()}", "{int(id_diag)}", "{int(id_doc)}", "{id_user}");''')    
-        bdd.commit()
 
-        if id_diag == -1:
-            utils.send_mail('CRO sans diagnostic trouvé', CRO)
-        
+    cursor.execute('SELECT id_CRO FROM CRO;')
+    CRO_in_bdd = cursor.fetchall()
+    ids_CRO = pd.DataFrame(CRO_in_bdd, columns=['id_CRO'], dtype=str)
+    id_last_CRO = int(ids_CRO.id_CRO[len(ids_CRO) - 1])
 
-        if len(predict.keys()) > 0:
-            response = {'response': True,           
-                        'predict': predict}
-            return jsonify(response)
-        else:
-            response = {'response': False}
+    id_diag = -1
+    if 'DIAG' in predict:
+        predict_in_CRO = predict['DIAG'][0]
     
-    except Exception as e:
-        print(e)
-        utils.send_mail('endpoint predict', e)
+        cursor.execute(f'SELECT * FROM diagnostics_v2;')
+        diags_in_bdd = cursor.fetchall()
+        columns=[i[0] for i in cursor.description]
+        diags_df = pd.DataFrame(diags_in_bdd, columns= columns, dtype=str)
+        
+        diag_in_bdd = diags_df.query(f'diagnostic == "{predict_in_CRO}"')
+
+        if len(diag_in_bdd) == 0:
+            cursor.execute(
+            f'''INSERT INTO diagnostics_v2 (diagnostic, id_diag)
+            VALUES("{predict_in_CRO}", "{len(diags_df)}");''')    
+            bdd.commit()
+            id_diag = len(diags_in_bdd)
+        else:
+            id_diag = diag_in_bdd.id_diag.tolist()[0]
+
+    query =  f'''INSERT INTO CRO (CRO, nir, id_diag, id_med, load_by, id_CRO)
+        VALUES("{CRO}", "{nir}", "{int(id_diag)}", "{int(id_doc)}", "{id_user}", "{id_last_CRO + 1}");'''
+    print(query)
+    cursor.execute(query)    
+    bdd.commit()
+
+    if id_diag == -1:
+        utils.send_mail('CRO sans diagnostic trouvé', CRO)
+    
+
+    if len(predict.keys()) > 0:
+        response = {'response': True,           
+                    'predict': predict}
+        return jsonify(response)
+    else:
+        response = {'response': False}
+    
+    # except Exception as e:
+    #     print(e)
+    #     utils.send_mail('endpoint predict', e)
 
 @app.route('/patients', methods=['GET'])
 def get_patients() -> dict:
@@ -285,11 +297,11 @@ def get_antecedents() -> dict:
         cursor = bdd.cursor()
 
         cursor.execute(f'''SELECT CRO.id_CRO, CRO.nir, CRO.id_diag, 
-                    diagnostics.id_diag, diagnostic,
+                    diagnostics_v2.id_diag, diagnostic,
                     address, birthday, name, nir
                     FROM CRO 
                     JOIN patients USING (nir) 
-                    JOIN diagnostics USING (id_diag) {"WHERE name = '" + patient + "'" if patient != "" else ""};''')
+                    JOIN diagnostics_v2 USING (id_diag) {"WHERE name = '" + patient + "'" if patient != "" else ""};''')
         df_antecedents = cursor.fetchall()    
 
         columns=[i[0] for i in cursor.description]
@@ -348,10 +360,10 @@ def get_read_CRO() -> dict:
 
         cursor.execute(f'''SELECT * FROM CRO
                     JOIN patients USING (nir)
-                    JOIN diagnostics USING (id_diag)
+                    JOIN diagnostics_v2 USING (id_diag)
                     JOIN anatomopathologists USING (id_med)
                     JOIN logins ON CRO.load_by = logins.id
-                    WHERE id_CRO = {int(id_CRO)};''')
+                    WHERE id_CRO = "{int(id_CRO)}";''')
         datas_CRO = cursor.fetchall()    
 
         columns=[i[0] for i in cursor.description]

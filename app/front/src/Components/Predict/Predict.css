@@ -1,8 +1,3 @@
-.test {
-    color: red;
-    font-weight: bolder;
-}
-
 #container-predict {
     height: 90vh;
     display: flex;
@@ -31,27 +26,38 @@
 }
 
 #container-response {
+    height: 80vh;
     display: flex;
-    margin: 2% 2%;
+    margin: 0 2%;
 }
 
 #predict-CRO {
-    margin: 15px;
-    padding: 15px;
+    margin: 15px 15px 0 15px;
+    padding: 15px 0;
     width: 80%;
     border: 1px solid black;
     border-radius: 15px;
     background-color: #f7f4f4;
-    line-height: 2;    
+    line-height: 2;
+}
+
+#container-text {
+   height: 75vh;
+   padding: 0 15px;
+   overflow-y: scroll;
 }
 
 #predict-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     margin: 15px;
     padding: 15px 15px 15px 25px;
     width: 20%;
+    height: 100%;
     border: 1px solid black;
     border-radius: 15px;
-    background-color: #f7f4f4;
+    background-color: #f7f4f4;    
 }
 
 .predict {
