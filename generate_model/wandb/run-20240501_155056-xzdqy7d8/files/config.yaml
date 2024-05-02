@@ -1,0 +1,186 @@
+wandb_version: 1
+
+components:
+  desc: null
+  value:
+    ner:
+      factory: ner
+      incorrect_spans_key: null
+      moves: null
+      scorer:
+        '@scorers': spacy.ner_scorer.v1
+      update_with_oracle_cut_size: 100
+      model:
+        '@architectures': spacy.TransitionBasedParser.v2
+        state_type: ner
+        extra_state_tokens: false
+        hidden_width: 64
+        maxout_pieces: 2
+        use_upper: true
+        'no': null
+        tok2vec:
+          '@architectures': spacy.Tok2VecListener.v1
+          width: 256
+          upstream: '*'
+    tok2vec:
+      factory: tok2vec
+      model:
+        '@architectures': spacy.Tok2Vec.v2
+        embed:
+          '@architectures': spacy.MultiHashEmbed.v2
+          width: 256
+          attrs:
+          - NORM
+          - PREFIX
+          - SUFFIX
+          - SHAPE
+          rows:
+          - 5000
+          - 1000
+          - 2500
+          - 2500
+          include_static_vectors: true
+        encode:
+          '@architectures': spacy.MaxoutWindowEncoder.v2
+          width: 256
+          depth: 8
+          window_size: 1
+          maxout_pieces: 3
+corpora:
+  desc: null
+  value:
+    dev:
+      '@readers': spacy.Corpus.v1
+      max_length: 0
+      gold_preproc: false
+      limit: 0
+      augmenter: null
+    train:
+      '@readers': spacy.Corpus.v1
+      max_length: 0
+      gold_preproc: false
+      limit: 0
+      augmenter: null
+initialize:
+  desc: null
+  value:
+    vectors: fr_core_news_lg
+    init_tok2vec: null
+    vocab_data: null
+    lookups: null
+    before_init: null
+    after_init: null
+nlp:
+  desc: null
+  value:
+    lang: fr
+    pipeline:
+    - tok2vec
+    - ner
+    batch_size: 1000
+    disabled: []
+    before_creation: null
+    after_creation: null
+    after_pipeline_creation: null
+    tokenizer:
+      '@tokenizers': spacy.Tokenizer.v1
+    vectors:
+      '@vectors': spacy.Vectors.v1
+paths:
+  desc: null
+  value:
+    vectors: fr_core_news_lg
+    init_tok2vec: null
+system:
+  desc: null
+  value:
+    gpu_allocator: null
+    seed: 0
+training:
+  desc: null
+  value:
+    dev_corpus: corpora.dev
+    train_corpus: corpora.train
+    seed: 0
+    gpu_allocator: null
+    dropout: 0.1
+    accumulate_gradient: 1
+    patience: 1600
+    max_epochs: 0
+    max_steps: 20000
+    eval_frequency: 200
+    frozen_components: []
+    annotating_components: []
+    before_to_disk: null
+    before_update: null
+    batcher:
+      '@batchers': spacy.batch_by_words.v1
+      discard_oversize: false
+      tolerance: 0.2
+      get_length: null
+      size:
+        '@schedules': compounding.v1
+        start: 100
+        stop: 1000
+        compound: 1.001
+        t: 0.0
+    logger:
+      '@loggers': spacy.WandbLogger.v3
+      project_name: my_spacy_project
+      remove_config_values:
+      - paths.train
+      - paths.dev
+      - corpora.train.path
+      - corpora.dev.path
+      log_dataset_dir: ./corpus
+      model_log_interval: 1000
+      entity: null
+      run_name: null
+    optimizer:
+      '@optimizers': Adam.v1
+      beta1: 0.9
+      beta2: 0.999
+      l2_is_weight_decay: true
+      l2: 0.01
+      grad_clip: 1.0
+      use_averages: false
+      eps: 1.0e-08
+      learn_rate: 0.001
+    score_weights:
+      ents_f: 1.0
+      ents_p: 0.0
+      ents_r: 0.0
+      ents_per_type: null
+_wandb:
+  desc: null
+  value:
+    python_version: 3.10.9
+    cli_version: 0.16.6
+    framework: huggingface
+    huggingface_version: 4.36.2
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    start_time: 1714571456.0
+    t:
+      1:
+      - 1
+      - 11
+      - 33
+      - 49
+      - 55
+      2:
+      - 1
+      - 11
+      - 33
+      - 49
+      - 55
+      3:
+      - 16
+      - 23
+      4: 3.10.9
+      5: 0.16.6
+      6: 4.36.2
+      8:
+      - 3
+      - 5
+      13: windows-amd64

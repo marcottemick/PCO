@@ -55,11 +55,13 @@
 }
 
 #modal-CRO {
+    height: 510px;
     margin: 50px 25px 0 25px;
     padding: 10px;
     border: 1px solid black;
     border-radius: 5px;
     text-align: left;
+    overflow-y: scroll;
 }
 
 #modal-ul-datas {

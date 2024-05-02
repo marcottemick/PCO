@@ -28,9 +28,11 @@ const ModalCRO = ({ setIsOpen, detailCRO, idCRO, setIdCRO }) => {
                         <li>Anatomopathologiste: {detailCRO.name_med}</li>
                         <li>Diagnostic: {detailCRO.diagnostic}</li>
                         <li>Traité par: {detailCRO.login}</li>
-                     </ul>
+                    </ul>
                 </div>
-                <div id='modal-CRO' dangerouslySetInnerHTML={sanitizedData(detailCRO.CRO.replaceAll('\n', '<br/>'))} />
+                <div id='modal-CRO' >
+                    <div dangerouslySetInnerHTML={sanitizedData(detailCRO.CRO.replaceAll('\n', '<br/>'))} />
+                </div>
             </div>
         </Modal>
     );

@@ -1,0 +1,36 @@
+2024-05-01 15:50:56,130 INFO    MainThread:3588 [wandb_setup.py:_flush():76] Current SDK version is 0.16.6
+2024-05-01 15:50:56,131 INFO    MainThread:3588 [wandb_setup.py:_flush():76] Configure stats pid to 3588
+2024-05-01 15:50:56,131 INFO    MainThread:3588 [wandb_setup.py:_flush():76] Loading settings from C:\Users\utilisateur\.config\wandb\settings
+2024-05-01 15:50:56,131 INFO    MainThread:3588 [wandb_setup.py:_flush():76] Loading settings from c:\PCO\generate_model\wandb\settings
+2024-05-01 15:50:56,131 WARNING MainThread:3588 [wandb_setup.py:_flush():76] Unknown environment variable: WANDB_SERVICE
+2024-05-01 15:50:56,131 INFO    MainThread:3588 [wandb_setup.py:_flush():76] Loading settings from environment variables: {}
+2024-05-01 15:50:56,133 INFO    MainThread:3588 [wandb_setup.py:_flush():76] Applying setup settings: {'_disable_service': False}
+2024-05-01 15:50:56,133 WARNING MainThread:3588 [wandb_setup.py:_flush():76] Could not find program at -m spacy.__main__
+2024-05-01 15:50:56,133 INFO    MainThread:3588 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program_relpath': None, 'program': '-m spacy.__main__'}
+2024-05-01 15:50:56,133 INFO    MainThread:3588 [wandb_setup.py:_flush():76] Applying login settings: {}
+2024-05-01 15:50:56,137 INFO    MainThread:3588 [wandb_init.py:_log_setup():521] Logging user logs to c:\PCO\generate_model\wandb\run-20240501_155056-xzdqy7d8\logs\debug.log
+2024-05-01 15:50:56,137 INFO    MainThread:3588 [wandb_init.py:_log_setup():522] Logging internal logs to c:\PCO\generate_model\wandb\run-20240501_155056-xzdqy7d8\logs\debug-internal.log
+2024-05-01 15:50:56,138 INFO    MainThread:3588 [wandb_init.py:init():561] calling init triggers
+2024-05-01 15:50:56,138 INFO    MainThread:3588 [wandb_init.py:init():568] wandb.init called with sweep_config: {}
+config: {'components': {'ner': {'factory': 'ner', 'incorrect_spans_key': None, 'moves': None, 'scorer': {'@scorers': 'spacy.ner_scorer.v1'}, 'update_with_oracle_cut_size': 100, 'model': {'@architectures': 'spacy.TransitionBasedParser.v2', 'state_type': 'ner', 'extra_state_tokens': False, 'hidden_width': 64, 'maxout_pieces': 2, 'use_upper': True, 'no': None, 'tok2vec': {'@architectures': 'spacy.Tok2VecListener.v1', 'width': 256, 'upstream': '*'}}}, 'tok2vec': {'factory': 'tok2vec', 'model': {'@architectures': 'spacy.Tok2Vec.v2', 'embed': {'@architectures': 'spacy.MultiHashEmbed.v2', 'width': 256, 'attrs': ['NORM', 'PREFIX', 'SUFFIX', 'SHAPE'], 'rows': [5000, 1000, 2500, 2500], 'include_static_vectors': True}, 'encode': {'@architectures': 'spacy.MaxoutWindowEncoder.v2', 'width': 256, 'depth': 8, 'window_size': 1, 'maxout_pieces': 3}}}}, 'corpora': {'dev': {'@readers': 'spacy.Corpus.v1', 'max_length': 0, 'gold_preproc': False, 'limit': 0, 'augmenter': None}, 'train': {'@readers': 'spacy.Corpus.v1', 'max_length': 0, 'gold_preproc': False, 'limit': 0, 'augmenter': None}}, 'initialize': {'vectors': 'fr_core_news_lg', 'init_tok2vec': None, 'vocab_data': None, 'lookups': None, 'before_init': None, 'after_init': None}, 'nlp': {'lang': 'fr', 'pipeline': ['tok2vec', 'ner'], 'batch_size': 1000, 'disabled': [], 'before_creation': None, 'after_creation': None, 'after_pipeline_creation': None, 'tokenizer': {'@tokenizers': 'spacy.Tokenizer.v1'}, 'vectors': {'@vectors': 'spacy.Vectors.v1'}}, 'paths': {'vectors': 'fr_core_news_lg', 'init_tok2vec': None}, 'system': {'gpu_allocator': None, 'seed': 0}, 'training': {'dev_corpus': 'corpora.dev', 'train_corpus': 'corpora.train', 'seed': 0, 'gpu_allocator': None, 'dropout': 0.1, 'accumulate_gradient': 1, 'patience': 1600, 'max_epochs': 0, 'max_steps': 20000, 'eval_frequency': 200, 'frozen_components': [], 'annotating_components': [], 'before_to_disk': None, 'before_update': None, 'batcher': {'@batchers': 'spacy.batch_by_words.v1', 'discard_oversize': False, 'tolerance': 0.2, 'get_length': None, 'size': {'@schedules': 'compounding.v1', 'start': 100, 'stop': 1000, 'compound': 1.001, 't': 0.0}}, 'logger': {'@loggers': 'spacy.WandbLogger.v3', 'project_name': 'my_spacy_project', 'remove_config_values': ['paths.train', 'paths.dev', 'corpora.train.path', 'corpora.dev.path'], 'log_dataset_dir': './corpus', 'model_log_interval': 1000, 'entity': None, 'run_name': None}, 'optimizer': {'@optimizers': 'Adam.v1', 'beta1': 0.9, 'beta2': 0.999, 'l2_is_weight_decay': True, 'l2': 0.01, 'grad_clip': 1.0, 'use_averages': False, 'eps': 1e-08, 'learn_rate': 0.001}, 'score_weights': {'ents_f': 1.0, 'ents_p': 0.0, 'ents_r': 0.0, 'ents_per_type': None}}}
+2024-05-01 15:50:56,139 INFO    MainThread:3588 [wandb_init.py:init():611] starting backend
+2024-05-01 15:50:56,139 INFO    MainThread:3588 [wandb_init.py:init():615] setting up manager
+2024-05-01 15:50:56,143 INFO    MainThread:3588 [backend.py:_multiprocessing_setup():105] multiprocessing start_methods=spawn, using: spawn
+2024-05-01 15:50:56,171 INFO    MainThread:3588 [wandb_init.py:init():623] backend started and connected
+2024-05-01 15:50:56,179 INFO    MainThread:3588 [wandb_init.py:init():715] updated telemetry
+2024-05-01 15:50:56,289 INFO    MainThread:3588 [wandb_init.py:init():748] communicating run to backend with 90.0 second timeout
+2024-05-01 15:50:56,936 INFO    MainThread:3588 [wandb_run.py:_on_init():2357] communicating current version
+2024-05-01 15:50:57,087 INFO    MainThread:3588 [wandb_run.py:_on_init():2366] got version response 
+2024-05-01 15:50:57,088 INFO    MainThread:3588 [wandb_init.py:init():799] starting run threads in backend
+2024-05-01 15:50:58,419 INFO    MainThread:3588 [wandb_run.py:_console_start():2335] atexit reg
+2024-05-01 15:50:58,419 INFO    MainThread:3588 [wandb_run.py:_redirect():2190] redirect: wrap_raw
+2024-05-01 15:50:58,421 INFO    MainThread:3588 [wandb_run.py:_redirect():2255] Wrapping output streams.
+2024-05-01 15:50:58,421 INFO    MainThread:3588 [wandb_run.py:_redirect():2280] Redirects installed.
+2024-05-01 15:50:58,427 INFO    MainThread:3588 [wandb_init.py:init():842] run started, returning control to user process
+2024-05-02 09:48:41,827 INFO    MainThread:3588 [wandb_run.py:_finish():2064] finishing run mam14/my_spacy_project/xzdqy7d8
+2024-05-02 09:48:41,828 INFO    MainThread:3588 [wandb_run.py:_atexit_cleanup():2304] got exitcode: 0
+2024-05-02 09:48:41,828 INFO    MainThread:3588 [wandb_run.py:_restore():2287] restore
+2024-05-02 09:48:41,828 INFO    MainThread:3588 [wandb_run.py:_restore():2293] restore done
+2024-05-02 09:51:12,331 WARNING MsgRouterThr:3588 [router.py:message_loop():77] message_loop has been closed
+2024-05-02 09:51:14,082 INFO    MainThread:3588 [wandb_run.py:_restore():2287] restore
+2024-05-02 09:51:14,082 INFO    MainThread:3588 [wandb_run.py:_restore():2293] restore done

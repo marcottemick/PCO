@@ -30,7 +30,8 @@ def put_login() -> dict:
         bdd = utils.get_db_connection()
         cursor = bdd.cursor()
 
-        cursor.execute(f'''SELECT id_role, id FROM logins WHERE login = "{login}" and password = "{password}";''')
+        cursor.execute(f'''SELECT id_role, id FROM logins 
+                       WHERE login = "{login}" and password = "{password}";''')
         response_role = cursor.fetchone()
 
         if response_role is None:
@@ -59,8 +60,7 @@ def get_logins():
         bdd = utils.get_db_connection()
         cursor = bdd.cursor()
 
-        cursor.execute(f'''SELECT * FROM logins 
-                       JOIN role USING (id_role);''')
+        cursor.execute(f'''SELECT * FROM logins JOIN role USING (id_role);''')
         df_logins = cursor.fetchall()
 
         columns=[i[0] for i in cursor.description]
@@ -173,24 +173,28 @@ def put_predict() -> dict:
     nir = -1
 
     if patient is not None:
-        predict['PER'] = [patient.group(1).strip()]
+        patient_extract = patient.group(1).strip()
+        predict['PER'] = [patient_extract]
     if birthday is not None:
-        predict['DATE'] = [birthday.group(1).strip()]
+        birthday_extract = birthday.group(1).strip()
+        predict['DATE'] = [birthday_extract]
     if address is not None:
-        predict['LOC'] = [address.group(1).strip()]
+        address_extract = address.group(1).strip()
+        predict['LOC'] = [address_extract]
     if doc is not None:
-        predict['DOC'] = [doc.group(1).strip()]
+        doc_extract = doc.group(1).strip()
+        predict['DOC'] = [doc_extract]
 
         cursor.execute(f'SELECT * FROM anatomopathologists;')
         docs_in_bdd = cursor.fetchall()
         columns=[i[0] for i in cursor.description]
         docs_df = pd.DataFrame(docs_in_bdd, columns= columns, dtype=str)
-        doc_in_bdd = docs_df.query(f'name == "{doc.group(1).strip()}"')
+        doc_in_bdd = docs_df.query(f'name == "{doc_extract}"')
 
         if len(doc_in_bdd) == 0:
             cursor.execute(
             f'''INSERT INTO anatomopathologists (name, id_med)
-            VALUES("{doc.group(1).strip()}", "{len(docs_df)}");''')    
+            VALUES("{doc_extract}", "{len(docs_df)}");''')    
             bdd.commit()
             id_doc = len(docs_in_bdd)
         else:
@@ -199,20 +203,20 @@ def put_predict() -> dict:
     if nir_find is not None:
         predict['NIR'] = [nir_find.group(1).strip()]
 
-        cursor.execute(f'SELECT nir FROM patients WHERE nir = "{nir_find.group(1).strip()}";')
+        cursor.execute(f'SELECT nir FROM patients WHERE nir = "{nir}";')
         patient_in_bdd = cursor.fetchall()
         if len(patient_in_bdd) == 0:
+            nir = nir_find.group(1).strip()
             cursor.execute(
             f'''INSERT INTO patients (name, address, birthday, nir)
-            VALUES("{patient.group(1).strip()}", "{address.group(1).strip()}", "{birthday.group(1).strip()}", "{nir_find.group(1).strip()}");''')
-            bdd.commit() 
-            nir = nir_find.group(1).strip()
+            VALUES("{patient_extract}", "{address_extract}", "{birthday_extract}", "{nir}");''')
+            bdd.commit()           
 
 
-    cursor.execute('SELECT id_CRO FROM CRO;')
+    cursor.execute('SELECT id_CRO FROM CRO ORDER BY id_CRO DESC LIMIT 1;')
     CRO_in_bdd = cursor.fetchall()
     ids_CRO = pd.DataFrame(CRO_in_bdd, columns=['id_CRO'], dtype=str)
-    id_last_CRO = int(ids_CRO.id_CRO[len(ids_CRO) - 1])
+    id_last_CRO = int(ids_CRO.id_CRO[0])
 
     id_diag = -1
     if 'DIAG' in predict:
@@ -236,7 +240,6 @@ def put_predict() -> dict:
 
     query =  f'''INSERT INTO CRO (CRO, nir, id_diag, id_med, load_by, id_CRO)
         VALUES("{CRO}", "{nir}", "{int(id_diag)}", "{int(id_doc)}", "{id_user}", "{id_last_CRO + 1}");'''
-    print(query)
     cursor.execute(query)    
     bdd.commit()
 
@@ -301,7 +304,8 @@ def get_antecedents() -> dict:
                     address, birthday, name, nir
                     FROM CRO 
                     JOIN patients USING (nir) 
-                    JOIN diagnostics_v2 USING (id_diag) {"WHERE name = '" + patient + "'" if patient != "" else ""};''')
+                    JOIN diagnostics_v2 USING (id_diag) 
+                    {"WHERE name = '" + patient + "'" if patient != "" else ""};''')
         df_antecedents = cursor.fetchall()    
 
         columns=[i[0] for i in cursor.description]
@@ -368,14 +372,18 @@ def get_read_CRO() -> dict:
 
         columns=[i[0] for i in cursor.description]
 
+        print(columns)
+
         columns[8] = 'name_patient'
-        columns[14] = 'name_med'
+        columns[15] = 'name_med'
 
         cursor.close()
 
         datas_CRO = pd.DataFrame(datas_CRO, columns = columns, dtype=str)
-        datas_CRO = datas_CRO.drop(['id_med', 'id_diag', 'organe', 'operation', 'cancer', 'load_by', 'id', 'password', 'id_role'], axis = 1)
+        datas_CRO = datas_CRO.drop(['id_med', 'id_diag', 'operation', 'load_by', 'id', 'password', 'id_role', 'source', 'generation', 'statut', 'nb_mots'], axis = 1)
         datas_CRO_response = datas_CRO.to_dict(orient='records')
+
+        print(datas_CRO_response)
 
         response = {'detailCRO': datas_CRO_response[0]}
         return jsonify(response)
