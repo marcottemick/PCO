@@ -96,4 +96,4 @@ class FlaskAppTests(unittest.TestCase):
         self.assertEqual(response_data['detailCRO']['nir'], expected_response['detailCRO']['nir'])
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(verbosity= 2)
