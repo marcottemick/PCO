@@ -80,7 +80,7 @@ commands:
   - name: "train"
     help: "Train the NER model"
     script:
-      - "python -m spacy train configs/config.cfg --output training/ --paths.train corpus/train.spacy --paths.dev corpus/dev.spacy"
+      - "python -m spacy train configs/config.cfg --output E:/training/ --paths.train corpus/train.spacy --paths.dev corpus/dev.spacy"
     deps:
       - "configs/config.cfg"
       - "corpus/train.spacy"
@@ -102,7 +102,7 @@ commands:
   - name: "evaluate"
     help: "Evaluate the model and export metrics"
     script:
-      - "python -m spacy evaluate training/model-best corpus/test.spacy --output training/metrics.json"
+      - "python -m spacy evaluate E:/training/model-best corpus/test.spacy --output training/metrics.json"
     deps:
       - "corpus/test.spacy"
       - "training/model-best"

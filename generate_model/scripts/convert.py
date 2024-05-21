@@ -30,12 +30,29 @@ def convert(lang: str, input_path: Path, output_path: Path, data_aug: int):
             else:
                 ents.append(span)
         doc.ents = ents
-        print(ents)
         db.add(doc)
     # data augmentation en remplaçant des valeurs dans un autre texte en créant n versions différentes par texte.
     augmented_dataset = EntitySwapAugmenter(db).augment(data_aug)
     augmented_dataset.to_disk(output_path)
 
+# def convert(lang: str, input_path: Path, output_path: Path): 
+#     nlp = spacy.blank(lang)
+#     # Create a DocBin object:
+#     db = DocBin()
+#     for text, annotations in srsly.read_json(input_path): # Data in previous format
+#         doc = nlp(text)
+#         ents = []
+#         spans = []
+#         for start, end, label in annotations['entities']: # Add character indexes
+#             spans.append(Span(doc, 0, len(doc), label=label))
+#             span = doc.char_span(start, end, label=label)
+#             if span is not None :
+#                 ents.append(span)
+#         doc.ents = ents # Label the text with the ents
+#         group = SpanGroup(doc, name="sc", spans=spans)
+#         doc.spans["sc"] = group
+#         db.add(doc)
+#     db.to_disk(output_path)
 
 if __name__ == "__main__":
     typer.run(convert)
