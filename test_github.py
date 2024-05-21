@@ -6,7 +6,7 @@ class TestCommit(unittest.TestCase):
         root_files = os.listdir()
         self.assertIn('.gitignore', root_files)
         self.assertIn('requirements.txt', root_files)
-        self.assertIn('app\front\package.json', root_files)
+        self.assertIn('package.json', root_files + 'app/front/')
 
 if __name__ == '__main__':
     unittest.main(verbosity = 2)
