@@ -52,7 +52,7 @@ const Metriques = () => {
                         <Line
                             data={{
                                 // seconde boucle => les différents labels surveillés
-                                labels: chartData.essai.map(rq => rq.substring(0, 7)),
+                                labels: chartData.id_essai.map(rq => 'train-' + rq),
                                 datasets:
                                     labels_ner.map((label_ner, index) => ({
                                         label: `${label_ner}_${metric}`,

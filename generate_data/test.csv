@@ -1,37 +1,37 @@
 id_diag;diagnostic;generation;statut;nb_mots
 0;abcès;0;exclu;1
-1;acrodermatite chronique atrophiante;0;Test;3
+1;acrodermatite chronique atrophiante;0;Train;3
 2;adénocarcinome;1;Train;1
 3;adénome tubuleux;0;Train;2
-4;adénome tubulovilleux;0;Test;2
+4;adénome tubulovilleux;0;Train;2
 5;adénome villeux;1;Train;2
 6;adénomyose;0;Train;1
 7;adénose;0;Train;1
-8;agiomyolipome extra-rénal;0;Train;2
+8;agiomyolipome extra-rénal;0;Test;2
 9;amyotrophie spinale proximale;0;Train;3
-10;angioendothéliome intralymphatique capillaire;0;Test;3
-11;angiofibrome cellulaire;0;Train;2
+10;angioendothéliome intralymphatique capillaire;0;Train;3
+11;angiofibrome cellulaire;0;Test;2
 12;angiolipome;0;Train;1
 13;angioléiomyome;0;Train;1
 14;angiomatose;0;Train;1
 15;angiomyofibroblastome;0;Train;1
 16;angiomyxome;0;Train;1
-17;angiosarcome;0;Test;1
-18;anémie réfractaire avec excès de blastes;0;Test;6
-19;anémie réfractaire sidéroblastique idiopathique;0;Test;4
+17;angiosarcome;0;Train;1
+18;anémie réfractaire avec excès de blastes;0;Train;6
+19;anémie réfractaire sidéroblastique idiopathique;0;Train;4
 20;appendicite chronique;0;Train;2
 21;appendicite gangréneuse;0;Train;2
 22;arthrite rhumatoïde;0;Train;2
 23;arthrose;0;Train;1
 24;asthme;0;Train;1
-25;athérosclérose;0;Test;1
+25;athérosclérose;0;Train;1
 26;bronchopneumopathie chronique obstructive;0;Train;3
 27;bursite;0;Train;1
 28;calculs;0;exclu;1
 29;cancer colorectal héréditaire non polyposique;1;Train;5
-30;cancer du côlon mucineux;1;Test;4
+30;cancer du côlon mucineux;1;Train;4
 31;cancer du côlon métastatique;1;Train;4
-32;cancer indifférencié;1;Test;2
+32;cancer indifférencié;1;Train;2
 33;cancer à cellules en anneau de mucus;1;Train;7
 34;capsulite;0;Train;1
 35;carcinome adnexal;1;Test;2
@@ -47,38 +47,38 @@ id_diag;diagnostic;generation;statut;nb_mots
 45;carcinome squirrheux;1;Train;2
 46;carcinome sébacé;1;Train;2
 47;carcinome tubuleux;0;Test;2
-48;carcinome à cellules claires;1;Train;4
+48;carcinome à cellules claires;1;Test;4
 49;carcinome à cellules de Merkel;1;Train;5
 50;carcinome à cellules squameuses;0;Train;4
-51;carcinome à petites cellules;1;Test;4
+51;carcinome à petites cellules;1;Train;4
 52;carcinome épidermoïde;1;Train;2
 53;carcinoïde;1;exclu;1
 54;cardiomyopathie;0;Train;1
 55;cholangiocarcinome;1;Train;1
-56;chondrocalcinose;0;Train;1
-57;chondrosarcome;1;Train;1
+56;chondrocalcinose;0;Test;1
+57;chondrosarcome;1;Test;1
 58;carcinome;0;exclu;1
 59;cirrhose;0;exclu;1
-60;colite allergique;0;Train;2
+60;colite allergique;0;Test;2
 61;colite auto-immune;1;Train;2
 62;colite chimique;0;Train;2
-63;colite diverticulaire;1;Test;2
-64;colite indéterminée;1;Train;2
+63;colite diverticulaire;1;Train;2
+64;colite indéterminée;1;Test;2
 65;colite infectieuse;1;Train;2
-66;colite ischémique;1;Test;2
-67;colite lymphocytaire;0;Train;2
-68;colite microscopique;1;Train;2
+66;colite ischémique;1;Train;2
+67;colite lymphocytaire;0;Test;2
+68;colite microscopique;1;Test;2
 69;colite post-infectieuse;1;Train;2
-70;colite radique;1;Train;2
+70;colite radique;1;Test;2
 71;colite ulcéreuse;1;Train;2
 72;colite éosinophilique;1;Train;2
 73;colite;1;exclu;1
-74;cyphose;0;Train;1
-75;cystadénome;1;Test;1
+74;cyphose;0;Test;1
+75;cystadénome;1;Train;1
 76;cytopénie réfractaire avec dysplasie multilignée;0;exclu;5
 77;cytopénie réfractaire avec dysplasie unilignée;0;exclu;5
 78;dermatite atopique;1;Train;2
-79;dermatite de contact;1;Train;3
+79;dermatite de contact;1;Test;3
 80;dermatite de stase;1;Train;3
 81;dermatite herpétiforme;1;Train;2
 82;dermatite péri-orale;1;Train;2
@@ -86,64 +86,64 @@ id_diag;diagnostic;generation;statut;nb_mots
 84;dermatofibrosarcome protubérant avec zone de fibrosarcome;0;exclu;6
 85;dermatofibrosarcome protubérant pigmenté;0;exclu;3
 86;dermatomyosite;1;Train;1
-87;diabète sucré;0;Train;2
+87;diabète sucré;0;Test;2
 88;discopathie;0;Test;1
-89;disjonction acromio-claviculaire;0;Test;2
+89;disjonction acromio-claviculaire;0;Train;2
 90;diverticulite;1;Train;1
 91;dysplasie;0;exclu;1
 92;dystrophie musculaire de Duchenne;0;Train;4
 93;ectasie des canaux galactophores;0;Train;4
-94;ectomésenchymome;0;Test;1
-95;eczéma dyshidrosique;1;Test;2
-96;eczéma nummulaire;1;Test;2
+94;ectomésenchymome;0;Train;1
+95;eczéma dyshidrosique;1;Train;2
+96;eczéma nummulaire;1;Train;2
 97;endométriose;1;Train;1
-98;exostose;0;Test;1
-99;fasciite ischémique;0;Train;2
+98;exostose;0;Train;1
+99;fasciite ischémique;0;Test;2
 100;fasciite nodulaire;0;Test;2
-101;fasciite proliférative;0;Test;2
-102;fibroadénome;0;Train;1
-103;fibroblastome à cellules géantes;0;Test;4
+101;fasciite proliférative;0;Train;2
+102;fibroadénome;0;Test;1
+103;fibroblastome à cellules géantes;0;Train;4
 104;fibromatose colli;0;Train;2
 105;fibromatose desmoïde;0;Train;2
 106;fibromatose mammaire;0;Train;2
-107;fibromatose hyaline juvénile;0;Train;3
+107;fibromatose hyaline juvénile;0;Test;3
 108;fibromatose palmaire;0;Train;2
-109;fibromatose plantaire;0;Test;2
+109;fibromatose plantaire;0;Train;2
 110;fibrome de Gardner;0;Train;3
 111;fibrome Nuchal;0;Train;2
 112;fibromyxome acral;0;Train;2
 113;fibrosarcome épithélioïde sclérosante;0;Train;3
 114;fibrosarcomes infantile;0;Train;2
 115;fibrose kystique;0;Train;2
-116;fibrose pulmonaire;0;Train;2
-117;firome aponévrotique calcifiant;0;Test;3
-118;firoxanthome;0;Train;1
+116;fibrose pulmonaire;0;Test;2
+117;firome aponévrotique calcifiant;0;Train;3
+118;firoxanthome;0;Test;1
 119;glomangiomatose;0;Test;1
-120;glomérulonéphrite;0;Test;1
+120;glomérulonéphrite;0;Train;1
 121;gloître;0;Train;1
 122;gonarthrose;0;Train;1
 123;goutte;0;exclu;1
 124;granulome annulaire;1;Train;2
-125;gynécomastie;0;Test;1
+125;gynécomastie;0;Train;1
 126;hamartome;1;Train;1
 127;hernie discale;0;Train;2
 128;histiocytofibrome bénin profonds;0;Train;3
-129;histiocytofibroméangiomatoïde;0;Train;1
+129;histiocytofibroméangiomatoïde;0;Test;1
 130;hydronéphrose;0;Train;1
 131;hyperaldostéronisme primaire;0;Train;2
-132;hyperaldostéronisme secondaire;0;Train;2
-133;hyperplasie canalaire;0;Test;2
+132;hyperaldostéronisme secondaire;0;Test;2
+133;hyperplasie canalaire;0;Train;2
 134;hyperplasie lobulaire;0;Train;2
 135;hyperplasie nodulaire focale;1;Train;3
-136;hyperplasie surrénalienne congénitale;0;Train;3
+136;hyperplasie surrénalienne congénitale;0;Test;3
 137;hyperthyroïdie;0;Train;1
-138;hypothyroïdie;0;Test;1
+138;hypothyroïdie;0;Train;1
 139;hémangioendothéliome Kaposiforme;0;Test;2
 140;hémangioendothéliome composite;0;Train;2
 141;hémangioendothéliome pseudomyogénique;0;Train;2
 142;hémangioendothéliome épithélioïde;0;Train;2
 143;hémangiome;1;Train;1
-144;hémophilie;0;Train;1
+144;hémophilie;0;Test;1
 145;hémorragie utérine anormale;0;Train;3
 146;hémorroïde;0;Train;1
 147;hépatoblastome;1;Train;1
@@ -153,21 +153,21 @@ id_diag;diagnostic;generation;statut;nb_mots
 151;kyste pilonidal;0;Train;2
 152;kyste sébacé;0;Train;2
 153;leucémie lymphoïde chronique;0;Train;3
-154;leucémie myéloïde chronique;0;Train;3
-155;leucémie prolymphocytaire T;0;Test;3
+154;leucémie myéloïde chronique;0;Test;3
+155;leucémie prolymphocytaire T;0;Train;3
 156;leucémie à cellules NK;0;Train;4
-157;leucémie à cellules de Burkitt;0;Train;5
-158;leucémie à cellules à grains;0;Test;5
-159;lichen plan actinique;0;Test;3
+157;leucémie à cellules de Burkitt;0;Test;5
+158;leucémie à cellules à grains;0;Train;5
+159;lichen plan actinique;0;Train;3
 160;lichen plan aigu;0;Train;3
 161;lichen plan annulaire;0;Train;3
-162;lichen plan atrophique;0;Train;3
-163;lichen plan folliculaire;0;Train;3
+162;lichen plan atrophique;0;Test;3
+163;lichen plan folliculaire;0;Test;3
 164;lichen plan hypertrophique;0;Train;3
-165;lichen plan linéaire;0;Train;3
-166;lichen plan palmoplantaire;0;Train;3
+165;lichen plan linéaire;0;Test;3
+166;lichen plan palmoplantaire;0;Test;3
 167;lichen plan pemphigoïde;0;Train;3
-168;lichen plan pigmentaire;0;Test;3
+168;lichen plan pigmentaire;0;Train;3
 169;lichen plan pigmentosa;0;Train;3
 170;lichen scléreux;1;Test;2
 171;lipoblastomatose;0;Train;1
@@ -175,90 +175,90 @@ id_diag;diagnostic;generation;statut;nb_mots
 173;lipofibromatose;0;Train;1
 174;lipomatose;0;Train;1
 175;lipome;1;exclu;1
-176;liposarcome dédifférencié;0;Test;2
+176;liposarcome dédifférencié;0;Train;2
 177;liposarcome myxoïde;0;Train;2
 178;liposarcome non spécifié;0;Train;3
 179;liposarcome pléomorphe;0;Train;2
 180;liposarcome;0;exclu;1
 181;lupus discoïde;0;Train;2
 182;lupus vulgaris;0;Train;2
-183;lupus érythémateux;1;Train;2
+183;lupus érythémateux;1;Test;2
 184;lymphangiome;0;Train;1
 185;lymphome T angio-immunoblastiques;0;Train;3
-186;lymphome T angioimmunoblastique;0;Train;3
-187;lymphome T extraganglionnaire;0;Train;3
-188;lymphome T gamma-delta;0;Train;3
+186;lymphome T angioimmunoblastique;0;Test;3
+187;lymphome T extraganglionnaire;0;Test;3
+188;lymphome T gamma-delta;0;Test;3
 189;lymphome T hépatosplénique gamma-delta;0;Train;4
 190;lymphome T entéropathique;0;Train;3
 191;lymphome T périphériques;0;Train;3
-192;lymphome T panniculite;0;Test;3
+192;lymphome T panniculite;0;Train;3
 193;lymphome anaplasique à grandes cellules;0;Train;5
 194;lymphome à cellules B;0;Train;4
 195;lymphome à cellules T;0;Train;4
-196;lymphome de Burkitt;1;Train;3
+196;lymphome de Burkitt;1;Test;3
 197;lymphome de MALT;0;Train;3
 198;lymphome de la zone marginale ganglionnaire;0;Train;6
 199;lymphome diffus à grandes cellules B;0;Train;6
 200;lymphome du manteau;0;Train;3
 201;lymphome extranodal T/NK;0;Train;3
-202;lymphome folliculaire;0;Train;2
+202;lymphome folliculaire;0;Test;2
 203;lymphome hodgkinien;0;Train;2
-204;lymphome lymphoblastique;0;Test;2
+204;lymphome lymphoblastique;0;Train;2
 205;lymphome lymphocytique;0;Train;2
 206;lymphome lymphoplasmocytaire;0;Train;2
 207;lymphome médiastinal à grandes cellules B;0;Train;6
-208;lymphome non hodgkinien;0;Train;3
-209;lymphome splénique de la zone marginale;0;Train;6
+208;lymphome non hodgkinien;0;Test;3
+209;lymphome splénique de la zone marginale;0;Test;6
 210;léiomyome profond;0;Train;2
-211;léiomyosarcome;0;Train;1
+211;léiomyosarcome;0;Test;1
 212;macroglobulinémie de Waldenström;0;Train;3
-213;mafibrose kystique;0;Train;2
+213;mafibrose kystique;0;Test;2
 214;maladie d'Addison;0;Train;2
 215;maladie d'Alzheimer;0;Train;2
 216;maladie de Behçet;1;Train;3
 217;maladie de Charcot-Marie-Tooth;0;Train;3
 218;maladie de Crohn;1;Train;3
 219;maladie de Duhring-Brocq;1;Train;3
-220;maladie de Hodgkin;0;Test;3
+220;maladie de Hodgkin;0;Train;3
 221;maladie de Lyme;0;Train;3
-222;maladie de Paget;0;Train;3
+222;maladie de Paget;0;Test;3
 223;maladie de Parkinson;0;Train;3
-224;maladie de Waldenström;0;Train;3
+224;maladie de Waldenström;0;Test;3
 225;maladie hémorroïdaire;0;Train;2
-226;maladie rénale polykystique acquise;0;Train;4
-227;mastite;0;Test;1
-228;mastose sclérokystique;0;Train;2
-229;mucocele appendiculaire;0;Test;2
+226;maladie rénale polykystique acquise;0;Test;4
+227;mastite;0;Train;1
+228;mastose sclérokystique;0;Test;2
+229;mucocele appendiculaire;0;Train;2
 230;mycosis fongoïde;0;Train;2
 231;myofibromatose;0;Test;1
 232;myofibrome;0;Test;1
-233;myollipome;0;Train;1
+233;myollipome;0;Test;1
 234;myome;0;exclu;1
 235;myopéricytome;0;Train;1
 236;myosite ossifiante;0;Train;2
 237;myosite proliférative;0;Train;2
 238;myoépithéliome;0;Train;1
 239;myxofibrosarcome;0;Train;1
-240;myxome;0;Train;1
-241;myéololipome extra-surrénalien;0;Train;2
+240;myxome;0;Test;1
+241;myéololipome extra-surrénalien;0;Test;2
 242;mélanocarcinome;0;Train;1
 243;mélanome malin;0;exclu;2
 244;méningiome ectopique;0;Train;2
-245;neurofibrome plexiforme;0;Test;2
+245;neurofibrome plexiforme;0;Train;2
 246;neurome solitaire circonscrit;0;Train;3
-247;neutropénie réfractaire;0;Train;2
+247;neutropénie réfractaire;0;Test;2
 248;nécrose adipeuse;0;Train;2
 249;néphroangiosclérose;0;Train;1
 250;néphrolithiase cystinique;0;Train;2
 251;néphropathie diabétique;0;Train;2
 252;néphropathie lupique;0;Test;2
 253;occlusion;0;exclu;1
-254;omarthrose;0;Test;1
+254;omarthrose;0;Train;1
 255;osteomyélite;0;Train;1
 256;ostéite;0;Train;1
 257;ostéochondrite;0;Train;1
 258;ostéoporose;0;Train;1
-259;ostéopénie;0;Train;1
+259;ostéopénie;0;Test;1
 260;ostéosarcome;0;Train;1
 261;pectus excavatum;0;Train;2
 262;pemphigoïde bulleuse;1;Train;2
@@ -266,16 +266,16 @@ id_diag;diagnostic;generation;statut;nb_mots
 264;phéochromocytome;0;Train;1
 265;pityriasis rosé de Gibert;1;Train;4
 266;plagiocéphalie;0;Train;1
-267;pneumonie interstitielle;0;Train;2
+267;pneumonie interstitielle;0;Test;2
 268;polyarthrite rhumatoïde;0;Train;2
-269;polyglobulie de Vaquez;0;Test;3
+269;polyglobulie de Vaquez;0;Train;3
 270;polykystose;0;Train;1
 271;polype hyperplasique;1;Train;2
-272;polypose adénomateuse familiale;1;Test;3
+272;polypose adénomateuse familiale;1;Train;3
 273;prolapsus;0;exclu;1
-274;prolapsus hémorroïdaire;0;Train;2
+274;prolapsus hémorroïdaire;0;Test;2
 275;pseudarthrose;0;Train;1
-276;pseudo-tumeur fibostéo-fibreuse des doigts;0;Train;4
+276;pseudo-tumeur fibostéo-fibreuse des doigts;0;Test;4
 277;psoriasis;1;Train;1
 278;pyélonéphrite;0;Train;1
 279;périneuriome;0;Train;1
@@ -284,7 +284,7 @@ id_diag;diagnostic;generation;statut;nb_mots
 282;rectocolite hémorragique;0;Train;2
 283;rhabdomyome;0;Train;1
 284;rhabdomyosarcome alvéolaire;0;Train;2
-285;rhabdomyosarcome embryonnaire;0;Train;2
+285;rhabdomyosarcome embryonnaire;0;Test;2
 286;rhabdomyosarcome sclérosant;0;Train;2
 287;rhabdomyosarcome à cellules fusiformes;0;Train;4
 288;rhabdomyosarcomes pléomorphe;0;Train;2
@@ -292,80 +292,80 @@ id_diag;diagnostic;generation;statut;nb_mots
 290;rosacée;1;Train;1
 291;sarcome alvéolaire;0;Train;2
 292;sarcome d’Ewing;0;Train;2
-293;sarcome fibroblastique myxoinflammatoire;0;Train;3
+293;sarcome fibroblastique myxoinflammatoire;0;Test;3
 294;sarcome fibromyxoïde;0;Train;2
-295;sarcome indifférencié pléomorphe;0;Test;3
-296;sarcome indifférencié à cellules fusiformes;0;Train;5
+295;sarcome indifférencié pléomorphe;0;Train;3
+296;sarcome indifférencié à cellules fusiformes;0;Test;5
 297;sarcome indifférencié à cellules rondes;0;Train;5
 298;sarcome indifférencié épithélioïde;0;Train;3
 299;sarcome intimal;0;Train;2
-300;sarcome myofibroblastique;0;Train;2
+300;sarcome myofibroblastique;0;Test;2
 301;sarcome à cellules claires;0;Train;4
 302;sarcome à cellules fusiformes de Kaposi;1;Train;6
 303;sarcome épithélioïde;0;Train;2
 304;scapulalgie invalidante;0;Train;2
-305;schwannome;0;Train;1
+305;schwannome;0;Test;1
 306;sclérose en plaques;0;Test;3
 307;sclérose latérale amyotrophique;0;Train;3
 308;scoliose;0;Train;1
 309;spina-bifida;0;Train;1
-310;spondylarthrite;0;Train;1
+310;spondylarthrite;0;Test;1
 311;stomatite ulcérative chronique;0;Train;3
 312;sténose hypertrophique;0;Train;2
 313;syndrome adrénogénital;0;Train;2
-314;syndrome d'Allgrove;0;Test;2
+314;syndrome d'Allgrove;0;Train;2
 315;syndrome de Bartter;0;Train;3
-316;syndrome de Carney;0;Test;3
+316;syndrome de Carney;0;Train;3
 317;syndrome de Conn;0;Train;3
 318;syndrome de Cushing;0;Train;3
 319;syndrome de Down;0;Train;3
-320;syndrome de Liddle;0;Test;3
+320;syndrome de Liddle;0;Train;3
 321;syndrome de Lynch;1;Train;3
 322;syndrome de Nelson;0;Train;3
 323;syndrome de Peutz-Jeghers;1;Train;3
-324;syndrome de Stevens-Johnson;1;Test;3
+324;syndrome de Stevens-Johnson;1;Train;3
 325;syndrome de Sézary;0;Train;3
-326;syndrome de Triple A;0;Test;4
-327;syndrome de Waterhouse-Friderichsen;0;Test;3
+326;syndrome de Triple A;0;Train;4
+327;syndrome de Waterhouse-Friderichsen;0;Train;3
 328;syndrome de polypose juvénile;1;Train;4
-329;syndrome des ovaires polykystiques;0;Train;4
-330;syndrome d’Alport;0;Test;2
+329;syndrome des ovaires polykystiques;0;Test;4
+330;syndrome d’Alport;0;Train;2
 331;syndrome myélodysplasique inclassable;0;Train;3
-332;syndrome néphrotique;0;Test;2
+332;syndrome néphrotique;0;Train;2
 333;synovialosarcome biophysique;0;Train;2
 334;synovialosarcome non spécifié;0;Train;3
 335;synovialosarcome à cellules fusiformes;0;Train;4
 336;tendinite;0;Train;1
 337;tendino-bursite;0;Train;1
-338;thrombocytopénie réfractaire;0;Train;2
-339;thrombocytémie essentielle;0;Test;2
+338;thrombocytopénie réfractaire;0;Test;2
+339;thrombocytémie essentielle;0;Train;2
 340;thymome hamartomateux ectopique;0;Train;3
 341;torsion;0;exclu;1
 342;tuberculose;0;Train;1
-343;tumeur angiectatique hyalinisante pléomorphe;0;Test;4
-344;tumeur carcinoïde;1;Test;2
+343;tumeur angiectatique hyalinisante pléomorphe;0;Train;4
+344;tumeur carcinoïde;1;Train;2
 345;tumeur desmoplasique à petites cellules rondes;0;Train;6
-346;tumeur fibreuse calcifiante;0;Test;3
+346;tumeur fibreuse calcifiante;0;Train;3
 347;tumeur fibreuse solitaire;0;Train;3
 348;tumeur fibroblastique myxoinflammatoire;0;Train;3
 349;tumeur fibrohistiocytaire plexiforme;0;Train;3
 350;tumeur fibrolipomateuse hémosidérotique;0;Train;3
-351;tumeur fibromyxoïde ossifiante;0;Test;3
+351;tumeur fibromyxoïde ossifiante;0;Train;3
 352;tumeur glomique;0;Train;2
 353;tumeur lipomateuse;0;exclu;2
-354;tumeur maligne des gaines des nerfs périphériques;0;Test;7
+354;tumeur maligne des gaines des nerfs périphériques;0;Train;7
 355;tumeur myofibroblastique;0;Train;2
 356;tumeur myofibroblastique;0;exclu;2
 357;tumeur mésenchymateuse phosphaturique;0;Train;3
-358;tumeur neuroendocrine;1;Test;2
+358;tumeur neuroendocrine;1;Train;2
 359;tumeur phyllode;0;Train;2
 360;tumeur rhabdoïde;0;Train;2
 361;tumeur stromale gastro-intestinale;1;Train;3
 362;tumeur triton bénigne;0;Train;3
 363;tumeur triton maligne;0;Train;3
-364;tumeur ténosynoviale à cellules géantes;0;Test;5
+364;tumeur ténosynoviale à cellules géantes;0;Train;5
 365;tumeur à cellules granuleuses;0;Train;4
-366;tumeur à cellules géantes des tissus mous;0;Train;7
+366;tumeur à cellules géantes des tissus mous;0;Test;7
 367;tumeur à cellules épithélioïdes périvasculaires;0;Train;5
 368;tumeurs hybrides des gaines nerveuses;0;Test;5
 369;ténosynovite;0;Train;1
@@ -374,15 +374,15 @@ id_diag;diagnostic;generation;statut;nb_mots
 372;urticaire;1;Train;1
 373;verrue;1;Train;1
 374;élastofibrome;0;Train;1
-375;épanchement de synovie;0;Train;3
+375;épanchement de synovie;0;Test;3
 376;épilepsie;0;Train;1
-377;érythematose discoïde;0;Train;2
+377;érythematose discoïde;0;Test;2
 378;érythème polymorphe;1;Train;2
-379;lichen sclérokystique;0;Test;2
-380;lichen scléro-atrophique;0;Train;2
+379;lichen sclérokystique;0;Train;2
+380;lichen scléro-atrophique;0;Test;2
 381;pityriasis rubra pilaire;1;Train;3
 382;carcinome fibrolamellaire;1;Train;2
-383;carcinome pléomorphe;1;Train;2
+383;carcinome pléomorphe;1;Test;2
 384;cancer des canaux biliaires intrahépatiques;1;Train;5
 385;lymphome cutané;0;exclu;2
 386;lymphome;1;exclu;1
@@ -398,37 +398,37 @@ id_diag;diagnostic;generation;statut;nb_mots
 396;pemphigus;0;Train;1
 397;alpha-dystroglycanopathies;0;Train;1
 398;amyotrophie spinale distale;0;Train;3
-399;neuropathie motrice héréditaire distale;0;Train;4
+399;neuropathie motrice héréditaire distale;0;Test;4
 400;amyotrophies bulbo-spinales;0;Train;2
-401;canalopathie;0;Train;1
-402;dystrophie musculaire d'Emery-Dreifuss;0;Train;3
+401;canalopathie;0;Test;1
+402;dystrophie musculaire d'Emery-Dreifuss;0;Test;3
 403;dystrophie musculaire de Becker;0;Train;4
 404;dystrophie musculaire oculopharyngée;0;Train;3
-405;dystrophie myotonique;0;Test;2
-406;dystrophinopathie;0;Train;1
-407;glycogénose;0;Test;1
+405;dystrophie myotonique;0;Train;2
+406;dystrophinopathie;0;Test;1
+407;glycogénose;0;Train;1
 408;maladie de Brody;0;Train;3
 409;maladie de Kennedy;0;Test;3
 410;maladie de Steinert;0;Train;3
 411;maladie de pompe;0;Train;3
 412;paramyotonie d’Eulenburg;0;Train;2
-413;maladie de Mcardle;0;Test;3
+413;maladie de Mcardle;0;Train;3
 414;dystrophie myotonique de steinert;0;exclu;4
 415;myasthénie auto-immune;0;Train;2
-416;myopathie des ceintures;0;Test;3
+416;myopathie des ceintures;0;Train;3
 417;myopathie distale de Laing;0;Train;4
 418;myopathie distale de Miyoshi;0;Train;4
 419;myopathie distale de Nonaka;0;Train;4
-420;myopathie distale de Udd;0;Test;4
-421;myopathie distale de Welander;0;Train;4
-422;myopathie facio-scapulo-humérale;0;Train;2
-423;myopathie mitochondriale;0;Test;2
+420;myopathie distale de Udd;0;Train;4
+421;myopathie distale de Welander;0;Test;4
+422;myopathie facio-scapulo-humérale;0;Test;2
+423;myopathie mitochondriale;0;Train;2
 424;myopathie myofibrillaire;0;Train;2
 425;myopathie myotubulaire;0;Train;2
-426;myopathie oculo-pharyngo-distale;0;Train;2
+426;myopathie oculo-pharyngo-distale;0;Test;2
 427;myosite à inclusions sporadique;0;Train;4
 428;myotonie congénitale de Becker;0;Train;4
-429;myotonie congénitale de Thomsen;0;Train;4
+429;myotonie congénitale de Thomsen;0;Test;4
 430;hypotrophie;0;Train;1
 431;fibrome sous-séreux;0;Train;2
 432;fibrome intramural;0;Train;2
@@ -441,7 +441,7 @@ id_diag;diagnostic;generation;statut;nb_mots
 439;orchite;0;Train;1
 440;hydrocèle;0;Train;1
 441;varicocèle;0;Train;1
-442;séminome;0;Train;1
+442;séminome;0;Test;1
 443;tumeur vitelline;0;Test;2
 444;choriocarcinome;0;Train;1
 445;tératome;0;Train;1
@@ -456,54 +456,54 @@ id_diag;diagnostic;generation;statut;nb_mots
 454;hématome;0;Train;1
 455;spermatocèle;0;Train;1
 456;néphroblastome;0;Test;1
-457;oncocytome;0;Train;1
+457;oncocytome;0;Test;1
 458;atrophie;0;exclu;1
-459;balanite;0;Test;1
-460;posthite;0;Test;1
-461;balanopasthite;0;Train;1
+459;balanite;0;Train;1
+460;posthite;0;Train;1
+461;balanopasthite;0;Test;1
 462;herpès;0;exclu;1
-463;syphilis;0;Test;1
+463;syphilis;0;Train;1
 464;condylome;0;Train;1
-465;urétrite;0;Train;1
-466;maladie de Lapeyronie;0;Test;3
+465;urétrite;0;Test;1
+466;maladie de Lapeyronie;0;Train;3
 467;arthrite psoriasique;0;Train;2
 468;acné;0;Train;1
 469;dermite séborrhéique;0;Train;2
 470;couperose;0;Train;1
 471;érythrose;0;Train;1
-472;vitiligo;0;Train;1
+472;vitiligo;0;Test;1
 473;naevusimpétigo;0;Train;1
 474;furoncle;0;Train;1
-475;gale;0;Train;1
-476;zona;0;Test;1
-477;varicelle;0;Test;1
-478;pelade;0;Test;1
-479;alopécie;0;Train;1
-480;ichtyose;0;Test;1
+475;gale;0;Test;1
+476;zona;0;Train;1
+477;varicelle;0;Train;1
+478;pelade;0;Train;1
+479;alopécie;0;Test;1
+480;ichtyose;0;Train;1
 481;albinisme;0;Test;1
-482;camptocormie;0;Test;1
+482;camptocormie;0;Train;1
 483;chondroblastome;0;Train;1
 484;épidermolyse bulleuse;0;Train;2
 485;galactosémie;0;Test;1
-486;maladie de Kienböck;0;Train;3
-487;maladie de Waldenström;0;Train;3
-488;ostéoblastome;0;Train;1
-489;pseudopolyarthrite rhizomélique;0;Test;2
+486;maladie de Kienböck;0;Test;3
+487;maladie de Waldenström;0;Test;3
+488;ostéoblastome;0;Test;1
+489;pseudopolyarthrite rhizomélique;0;Train;2
 490;syndrome de brugada;0;Train;3
-491;sclérodermie;0;Test;1
+491;sclérodermie;0;Train;1
 492;syndrome de Klinefelter;0;Train;3
-493;syndrome des antiphospholipides;0;Test;3
+493;syndrome des antiphospholipides;0;Train;3
 494;syringomyélie;0;Train;1
 495;tachycardie ventriculaire catécholergique;0;Train;3
 496;spina bifida;0;Train;2
 497;dermatose atopique;0;Train;2
 498;neurofibromatose;0;Train;1
 499;cystite interstitielle;0;Train;2
-500;protéinurie;0;Test;1
+500;protéinurie;0;Train;1
 501;oligurie;0;Train;1
 502;pollakiurie;0;Train;1
-503;rhabdomyolyse;0;Test;1
-504;hyponatrémie;0;Test;1
+503;rhabdomyolyse;0;Train;1
+504;hyponatrémie;0;Train;1
 505;hématurie;0;Train;1
 506;énurésie;0;Train;1
 507;priapisme;0;Train;1
@@ -513,14 +513,14 @@ id_diag;diagnostic;generation;statut;nb_mots
 511;diverticule de Zenker;0;Train;3
 512;diverticule épiphrénique;0;Train;2
 513;oesophatite;0;Train;1
-514;achalasie;0;Train;1
+514;achalasie;0;Test;1
 515;atrésie;0;Train;1
 516;dysphagie;0;Train;1
-517;spasme;0;Test;1
+517;spasme;0;Train;1
 518;dyspepsie;0;Train;1
-519;gastroparésie;0;Test;1
+519;gastroparésie;0;Train;1
 520;ampullome;0;Train;1
-521;lithiase biliaire;0;Test;2
+521;lithiase biliaire;0;Train;2
 522;tumeur pseudopapillaire;0;Train;2
 523;pancreatite;0;Test;1
 524;cavernose portal;0;Train;2
@@ -528,7 +528,7 @@ id_diag;diagnostic;generation;statut;nb_mots
 526;cholestase;0;Train;1
 527;hépatite A;0;Train;2
 528;hépatite auto-immune;0;Test;2
-529;hépatite B;0;Test;2
+529;hépatite B;0;Train;2
 530;hépatite C;0;Train;2
 531;hépatite D;0;Train;2
 532;hépatite E;0;Train;2
@@ -546,13 +546,13 @@ id_diag;diagnostic;generation;statut;nb_mots
 544;maladie post phlébitique;0;Train;3
 545;syndrome de congestion pelvienne;0;Train;4
 546;angine;0;Train;1
-547;endocardite;0;Train;1
-548;foramen ovale perméable;0;Train;3
+547;endocardite;0;Test;1
+548;foramen perméable;0;Test;2
 549;infactus;0;Train;1
 550;péricardite;0;Train;1
 551;amygdalite;0;Train;1
 552;adénopathie;0;exclu;1
-553;cytopénie réfractaire;0;Test;2
+553;cytopénie réfractaire;0;Train;2
 554;prurigo nodulaire;0;Train;2
 555;eczéma atopique;0;Train;2
 556;polyangéite granulomateuse;0;Train;2

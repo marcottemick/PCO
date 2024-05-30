@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 dashboard.config.init_from(file='\config.cfg')
 
-nlp = spacy.load(r"E:\versioning\training_15\model-best")
+nlp = spacy.load(r"E:\versioning\training_4\model-best")
 
 @app.route('/test', methods=['GET'])
 def get_test():
@@ -153,20 +153,21 @@ def put_predict() -> dict:
         bdd = utils.get_db_connection()
         cursor = bdd.cursor()
 
+        doc = None
+        predict = {}
+
         conclusion_extract = re.search(r'Conclusion\s*:\s*\n?(.*?)\.\n', CRO, re.DOTALL)
         if conclusion_extract:
             conclusion = conclusion_extract.group(1) + '.'
-            doc = nlp(conclusion)
+            doc = nlp(conclusion)            
 
-        predict = {}
-
-        for ent in doc.ents:
-            ner = ent.text.strip()          
-            if ent.label_ in predict.keys():
-                if ent.text not in predict[ent.label_]:
-                    predict[ent.label_].append(ner)
-            else:
-                predict[ent.label_] = [ner]  
+            for ent in doc.ents:
+                ner = ent.text.strip()          
+                if ent.label_ in predict.keys():
+                    if ent.text not in predict[ent.label_]:
+                        predict[ent.label_].append(ner)
+                else:
+                    predict[ent.label_] = [ner]  
 
         patient = re.search(r"Patient : (.+?)\n", CRO)
         birthday = re.search(r"Date de naissance : (.+?)\n", CRO)
@@ -206,19 +207,19 @@ def put_predict() -> dict:
                 id_doc = doc_in_bdd.id_med.tolist()[0]    
 
         if nir_find is not None:
-            predict['NIR'] = [nir_find.group(1).strip()]
-
+            nir = nir_find.group(1).strip()
+            predict['NIR'] = [nir]
+            
             cursor.execute(f'SELECT nir FROM patients WHERE nir = "{nir}";')
             patient_in_bdd = cursor.fetchall()
             if len(patient_in_bdd) == 0:
-                nir = nir_find.group(1).strip()
                 cursor.execute(
                 f'''INSERT INTO patients (name, address, birthday, nir)
                 VALUES("{patient_extract}", "{address_extract}", "{birthday_extract}", "{nir}");''')
                 bdd.commit()           
 
 
-        cursor.execute('SELECT id_CRO FROM CRO ORDER BY id_CRO DESC LIMIT 1;')
+        cursor.execute('SELECT id_CRO FROM CRO ORDER BY CAST(id_CRO AS UNSIGNED) DESC LIMIT 1;')
         CRO_in_bdd = cursor.fetchall()
         ids_CRO = pd.DataFrame(CRO_in_bdd, columns=['id_CRO'], dtype=str)
         id_last_CRO = int(ids_CRO.id_CRO[0])
@@ -249,8 +250,7 @@ def put_predict() -> dict:
         bdd.commit()
 
         if id_diag == -1:
-            utils.send_mail('CRO sans diagnostic trouvé', CRO)
-        
+            utils.send_mail('CRO sans diagnostic trouvé', CRO)        
 
         if len(predict.keys()) > 0:
             response = {'response': True,           
@@ -405,7 +405,7 @@ def get_metriques():
         bdd = utils.get_db_connection()
         cursor = bdd.cursor()
 
-        cursor.execute(f'''SELECT * FROM metrics;''')
+        cursor.execute(f'''SELECT id_essai, ents_precision, ents_rappel, ents_scoref1 FROM metrics;''')
         metrics = cursor.fetchall()   
 
         columns=[i[0] for i in cursor.description]

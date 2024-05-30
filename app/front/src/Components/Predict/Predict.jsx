@@ -48,7 +48,7 @@ const Predict = ({id}) => {
 
         }
         else {
-            toast.error('Acun CRO à analyser !', {
+            toast.error('Aucun CRO à analyser !', {
                 position: 'bottom-right',
                 autoClose: 5000,
             });
