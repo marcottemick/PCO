@@ -12,8 +12,7 @@ const PredictResponse = ({ predict, CRO, handleNewPredict, predictSuccess }) => 
         for (let j = 0; j < keys[i].length; j++) {
             CROpredict = CROpredict.replaceAll(predict[keys[i]][j], `<span class="predict ${keys[i]}">${predict[keys[i]][j]} - <strong>${keys[i]}</strong></span>`);
             CROpredict = CROpredict.replaceAll('\n', '<br/>');
-            console.log(CROpredict.includes('\n'))
-        };
+          };
     };
 
     const predict_viod = (arr) => arr != null ? arr.join(', ') : 'Pas de donnée'

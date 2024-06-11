@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 dashboard.config.init_from(file='\config.cfg')
 
-nlp = spacy.load(r"E:\versioning\training_4\model-best")
+nlp = spacy.load(r"E:\versioning\training_15\model-best")
 
 @app.route('/test', methods=['GET'])
 def get_test():
